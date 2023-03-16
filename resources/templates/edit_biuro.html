@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html 
+	lang="pl-PL"
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+		<link rel="stylesheet" type="text/css" href="../../styles/layout.css">
+		<link rel="stylesheet" type="text/css" href="../../styles/forms.css">
+		<script src="./scripts/form.js"></script>
+		<title>JedzieszDaleko - Nowe biuro</title>
+	</head>
+	<body>
+	
+		<!-- NAGŁÓWEK -->
+		<div class="header">
+
+			<!-- LOGO -->
+			<a class="logo" th:href="@{/}">Jedziesz<span>Daleko</span></a>
+
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pracownicy}"><i class="fas fa-angle-right"></i>Pracownicy</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pojazdy}"><i class="fas fa-angle-right"></i>Pojazdy</a>
+			<a class="menu" th:unless="@{${principal}==admin}" ></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/przystanki}"><i class="fas fa-angle-right"></i>Przystanki</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/biura}"><i class="fas fa-angle-right"></i>Biura</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}!=null}" th:href="@{/bilety}"><i class="fas fa-angle-right"></i>O mnie</a>
+			<a class="menu" th:unless="@{${principal}!=null}"></a>
+			<a class="menu" th:if="${principal!=null}" th:text="@{Wyloguj,}+${principal}" th:href="@{/logout}"><i class="fas fa-angle-right"></i>Wylogowanie</a>
+			<a class="menu" th:if="${principal==null}" th:text="@{Zaloguj się}" th:href="@{/login}"><i class="fas fa-angle-right"></i>Zalogowanie</a>
+		</div>
+		
+		<!-- TREŚĆ -->
+		
+		<!-- NAGŁÓWEK PODSTRONY -->
+		<div class="title" th:text="@{Edytuj biuro:}+' '+${biuro.nazwa}">Nowe biuro:</div>
+		
+		<!-- FORMULARZ BIURA -->
+		<form action="#" th:action="@{/biura/update/}+${nrbiura}" th:objects="${biuro}" method="post">
+			<label for="imie">Nazwa:</label>
+			<input th:field="${biuro.nazwa}" type="text" id="imie" placeholder="Biuro 1">
+			<label for="miasto">Miasto:</label>
+			<input th:field="${adres.miasto}" type="text" id="miasto" placeholder="Warszawa">
+			<label for="ulica">Ulica:</label>
+			<input th:field="${adres.ulica}" type="text"id="ulica" placeholder="Przykładowa">
+			<label for="budynek">Nr budynku:</label>
+			<input th:field="${adres.nrbudynku}" type="text" id="budynek" placeholder="00A">
+			<label for="lokal">Nr lokalu:</label>
+			<input th:field="${adres.nrlokalu}" onkeypress="" type="text" id="lokal" placeholder="00">
+			<label for="kod">Kod pocztowy:</label>
+			<input th:field="${adres.kodpocztowy}" onkeypress="return isCodeLegit(event)" onblur="isCodeLegit(event)" type="text" id="kod" placeholder="00-000">
+			<a class="button" th:href="@{/biura}"><i class="fas fa-angle-right"></i>Anuluj</a>
+			<button type="submit">Zapisz<i class="fas fa-save"></i></button>
+		</form>
+		
+		<!-- KOMUNIKAT BŁEDU -->
+		<div class="error" th:if="${param.error}">Wprowadzono nieprawidłowe dane. Spróbuj ponownie.</div>
+		
+		<!-- KONIEC TREŚCI -->
+
+		<!-- STOPKA -->
+		<p class="footer">&#169; Jedziesz Daleko 2022</p>
+		
+	</body>
+</html>

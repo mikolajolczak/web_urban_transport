@@ -1,0 +1,149 @@
+@font-face {
+	font-family: OpenSans-Bold;
+	src: url("../fonts/OpenSans-Bold.ttf");
+}
+
+@font-face {
+	font-family: OpenSans-Regular;
+	src: url("../fonts/OpenSans-Regular.ttf");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+	font-family: OpenSans-Regular;
+	font-size: 1vw;
+	
+	min-height: 100%;
+	background: url("../images/background.jpg");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+body {
+	display: grid;
+	grid-row-gap: 1rem;
+	place-items: center;
+	
+	margin-top: 7rem;
+}
+
+a {
+	text-decoration: none;
+	color: #000000;
+}
+
+/* NAGŁÓWEK */
+
+.header {
+	width: 100rem;
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	
+	display: grid;
+	grid-template-columns: repeat(7, auto);
+	place-items: center;
+
+	background: #FFF;
+	padding: 1rem 2.5rem;
+	
+	-webkit-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	-moz-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+}
+
+/* LOGO */
+
+.header a:nth-child(1) {	
+	justify-self: start;
+	font-family: OpenSans-Bold;
+	font-size: 2rem;
+}
+
+.header a:nth-child(1) span {
+	color: #3D9970;
+}
+
+/* MENU */
+
+.header a {
+	justify-self: end;
+	font-size: 1.2rem;
+	
+	-webkit-transition: color 0.1s;
+	-moz-transition: color 0.1s;
+	-o-transition: color 0.1s;
+	transition: color 0.1s;
+}
+
+.header i {
+	margin-right: 1rem;
+	color: #3D9970;
+}
+
+.header a:hover {
+	color: #3D9970;
+}
+
+/* PSEUDO-PRZYCISKI */
+
+.button {
+	width: 10rem;
+	background: #FFFFFF;
+	
+	text-align: center;
+	font-size: 1.2rem;
+	line-height: 2.8rem;
+	color: #3D9970;
+	border: solid 0.1rem;
+	
+	margin-top: 1rem;
+	padding: 0;
+	
+	-webkit-transition: border-radius 0.1s;
+	-moz-transition: border-radius 0.1s;
+	-o-transition: border-radius 0.1s;
+	transition: border-radius 0.1s;
+}
+
+.button i {
+	margin-right: 0.5rem;
+}
+
+.button:hover {
+	border-radius: 1rem;
+}
+
+/* NAGŁÓWKI PODSTRON */
+
+.title {
+	width: 50rem;
+	background: #FFFFFF;
+
+	color: #3D9970;
+	font-family: OpenSans-Bold;
+	font-size: 1.5rem;
+
+	-webkit-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	-moz-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	
+	padding: 2rem 2.5rem;
+}
+
+/* STOPKA */
+
+.footer {
+	width: 95rem;
+	margin: 5rem 2.5rem;
+}
+

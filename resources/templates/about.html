@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html 
+	lang="pl-PL"
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+		<link rel="stylesheet" type="text/css" href="./styles/layout.css">
+		<link rel="stylesheet" type="text/css" href="./styles/forms.css">
+		<title>JedzieszDaleko - Nowy pracownik</title>
+	</head>
+	<body>
+	
+		<!-- NAGŁÓWEK -->
+		<div class="header">
+
+			<!-- LOGO -->
+			<a class="logo" th:href="@{/}">Jedziesz<span>Daleko</span></a>
+
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pracownicy}"><i class="fas fa-angle-right"></i>Pracownicy</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pojazdy}"><i class="fas fa-angle-right"></i>Pojazdy</a>
+			<a class="menu" th:unless="@{${principal}==admin}" ></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/przystanki}"><i class="fas fa-angle-right"></i>Przystanki</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/biura}"><i class="fas fa-angle-right"></i>Biura</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}!=null}" th:href="@{/bilety}"><i class="fas fa-angle-right"></i>O mnie</a>
+			<a class="menu" th:unless="@{${principal}!=null}"></a>
+			<a class="menu" th:if="${principal!=null}" th:text="@{Wyloguj,}+${principal}" th:href="@{/logout}"><i class="fas fa-angle-right"></i>Wylogowanie</a>
+			<a class="menu" th:if="${principal==null}" th:text="@{Zaloguj się}" th:href="@{/login}"><i class="fas fa-angle-right"></i>Zalogowanie</a>
+		</div>
+		
+		<!-- TREŚĆ -->
+		
+		<!-- NAGŁÓWEK PODSTRONY -->
+		<div class="title">Witaj, ...</div>
+		
+		<!-- FORMULARZ PRACOWNIKA -->
+		<form th:action="@{/bilety/user/edit/1}" method="POST">
+			<p>Imię:</p>
+				<p>Adam</p>
+			<p>Nazwisko:</p>
+				<p>Nowak</p>
+			<p>Płeć:</p>
+				<p>Mężczyzna</p>
+			<p>Biuro:</p>
+				<p>Biuro A</p>
+			<p>Wynagrodzenia:</p>
+				<p>5000 PLN</p>
+			<p>Stanowisko</p>
+				<p>Specjalista</p>
+			<p>Nr konta:</p>
+				<p>00000000000000000000000000</p>
+			<p>Nr telefonu:</p>
+				<p>000000000</p>
+			<p>PESEL:</p>
+				<p>00000000000</p>
+			<p>Miasto:</p>
+				<p>Warszawa</p>
+			<p>Ulica:</p>
+				<p>Konwaliowa</p>
+			<p>Nr budynku:</p>
+				<p>5</p>
+			<p>Nr lokalu:</p>
+				<p>10</p>
+			<p>Kod pocztowy:</p>
+				<p>00-000</p>
+			<a class="button" th:href="@{/}"><i class="fas fa-angle-right"></i>Anuluj</a>
+			<button type="submit" >Edytuj<i class="fas fa-user-edit"></i></button>
+		</form>
+		
+		<!-- KOMUNIKAT BŁEDU -->
+		<div class="error" th:if="${param.error}">Wprowadzono nieprawidłowe dane. Spróbuj ponownie.</div>
+		
+		<!-- KONIEC TREŚCI -->
+
+		<!-- STOPKA -->
+		<p class="footer">&#169; Jedziesz Daleko 2022</p>
+		
+	</body>
+</html>

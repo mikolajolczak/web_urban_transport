@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html
+	lang="pl-PL"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+		<link rel="stylesheet" type="text/css" href="./styles/layout.css">
+		<link rel="stylesheet" type="text/css" href="./styles/tables.css">
+		<title>JedzieszDaleko - Pracownicy</title>
+	</head>
+	<body>
+	
+		<!-- NAGŁÓWEK -->
+		<div class="header">
+
+			<!-- LOGO -->
+			<a class="logo" th:href="@{/}">Jedziesz<span>Daleko</span></a>
+
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pracownicy}"><i class="fas fa-angle-right"></i>Pracownicy</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pojazdy}"><i class="fas fa-angle-right"></i>Pojazdy</a>
+			<a class="menu" th:unless="@{${principal}==admin}" ></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/przystanki}"><i class="fas fa-angle-right"></i>Przystanki</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/biura}"><i class="fas fa-angle-right"></i>Biura</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}!=null}" th:href="@{/bilety}"><i class="fas fa-angle-right"></i>O mnie</a>
+			<a class="menu" th:unless="@{${principal}!=null}"></a>
+			<a class="menu" th:if="${principal!=null}" th:text="@{Wyloguj,}+${principal}" th:href="@{/logout}"><i class="fas fa-angle-right"></i>Wylogowanie</a>
+			<a class="menu" th:if="${principal==null}" th:text="@{Zaloguj się}" th:href="@{/login}"><i class="fas fa-angle-right"></i>Zalogowanie</a>
+		</div>
+	
+		<!-- TREŚĆ -->
+		
+		<!-- NAGŁÓWEK PODSTRONY -->
+		<div class="title">
+			Tabela pracowników:
+			<a href="/newpracownik"><i class="fas fa-angle-right"></i>Nowy pracownik</a>
+		</div>
+		
+		<!-- TABELA -->
+		<table>
+			<thead>
+				<tr>
+					<th>Imię</th>
+					<th>Nazwisko</th>
+					<th>Płeć</th>
+					<th>Stanowsiko</th>
+					<th>Pensja</th>
+					<th>Adres</th>
+					<th>Zatrudniony</th>
+					<th>Nr konta</th>
+					<th>Nr tel.</th>
+					<th>PESEL</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each = "pracownik: ${listPracownik}">
+					<td th:text = "${pracownik.imie}"></td>
+					<td th:text = "${pracownik.nazwisko}"></td>
+					<td th:if="@{${pracownik.plec}=='M'}" th:text="@{Mezczyzna}"></td>
+					<td th:if="@{${pracownik.plec}=='K'}" th:text="@{Kobieta}"></td>
+					<td th:each="stanowisko: ${listStanowisko}" th:if="${stanowisko.nrstanowiska == pracownik.nrstanowiska}" th:text="${stanowisko.nazwa}"></td>
+					<td th:each="wynagrodzenie: ${listWynagrodzenie}" th:if="${wynagrodzenie.nrwynagrodzenia == pracownik.nrwynagrodzenia}" th:text="${wynagrodzenie.wysokoscwynagrodzenia}"></td>
+					<td th:each="adres: ${listAdres}" th:if="${adres.nradresu == pracownik.nradresu}" th:text="${adres.miasto+' '+ adres.ulica+' '+adres.nrbudynku+' '+adres.nrlokalu+' '+adres.kodpocztowy}"></td>
+					<td th:text = "${pracownik.datazatrudnienia}"></td>
+					<td th:text = "${pracownik.nrkonta}"></td>
+					<td th:text = "${pracownik.nrtelefonu}"></td>
+					<td th:text = "${pracownik.pesel}"></td>
+					<td><a th:href="@{'/pracownicy/edit/'+${pracownik.nrpracownika}}" ><i class="fas fa-pencil-alt"></i></a></td>
+					<td><a th:href="@{'/pracownicy/delete/'+${pracownik.nrpracownika}}" onclick="return confirm('Na pewno chcesz usunac pracownika?')"><i class="fas fa-trash-alt"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<!-- KONIEC TREŚCI -->
+
+		<!-- STOPKA -->
+		<p class="footer">&#169; Jedziesz Daleko 2022</p>
+		
+	</body>
+</html>

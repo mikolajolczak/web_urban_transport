@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html 
+	lang="pl-PL"
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+		<link rel="stylesheet" type="text/css" href="../../styles/layout.css">
+		<link rel="stylesheet" type="text/css" href="../../styles/forms.css">
+		<script src="./scripts/form.js"></script>
+		<title>JedzieszDaleko - Nowy pracownik</title>
+	</head>
+	<body>
+	
+		<!-- NAGŁÓWEK -->
+		<div class="header">
+
+			<!-- LOGO -->
+			<a class="logo" th:href="@{/}">Jedziesz<span>Daleko</span></a>
+
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pracownicy}"><i class="fas fa-angle-right"></i>Pracownicy</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pojazdy}"><i class="fas fa-angle-right"></i>Pojazdy</a>
+			<a class="menu" th:unless="@{${principal}==admin}" ></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/przystanki}"><i class="fas fa-angle-right"></i>Przystanki</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/biura}"><i class="fas fa-angle-right"></i>Biura</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}!=null}" th:href="@{/bilety}"><i class="fas fa-angle-right"></i>O mnie</a>
+			<a class="menu" th:unless="@{${principal}!=null}"></a>
+			<a class="menu" th:if="${principal!=null}" th:text="@{Wyloguj,}+${principal}" th:href="@{/logout}"><i class="fas fa-angle-right"></i>Wylogowanie</a>
+			<a class="menu" th:if="${principal==null}" th:text="@{Zaloguj się}" th:href="@{/login}"><i class="fas fa-angle-right"></i>Zalogowanie</a>
+		</div>
+
+		<!-- TREŚĆ -->
+		
+		<!-- NAGŁÓWEK PODSTRONY -->
+		<div class="title" th:text="@{Edytuj pracownika:}+' '+${pracownik.imie}+' '+${pracownik.nazwisko}">Edytuj pracownika:</div>
+		
+		<!-- FORMULARZ PRACOWNIKA -->
+		<form id="add" action="#" th:action="@{/pracownicy/update/}+${pracownik.nrpracownika}" th:objects="*{pracownik}" method="post">
+			<label for="imie">Imię:</label>
+			<input type="text" id="imie" placeholder="Adam" th:field="*{pracownik.imie}">
+			<label for="nazwisko">Nazwisko</label>
+			<input type="text" id="nazwisko" placeholder="Nowak" th:field="*{pracownik.nazwisko}">
+			<label for="plec">Płeć:</label>
+			<select form="add" id="plec" th:field="*{pracownik.plec}">
+				<option th:value="K">Kobieta</option>
+				<option th:value="M">Mezczyzna</option>
+			</select>
+			<label for="biuro">Biuro:</label>
+			<select form="add" id="biuro" th:field="*{pracownik.nrbiura}">
+				<option th:each = "biuro: ${listBiuro}" th:value="${biuro.nrbiura}" th:text="${biuro.nazwa}"></option>
+			</select>
+			<label for="wynagrodzenie">Wynagrodzenia:</label>
+			<select form="add" id="wynagrodzenie" th:field="*{pracownik.nrwynagrodzenia}">
+				<option th:each = "wynagrodzenie: ${listWynagrodzenie}" th:value="${wynagrodzenie.nrwynagrodzenia}" th:text="${wynagrodzenie.wysokoscwynagrodzenia}"></option>
+			</select>
+			<label for="stanowisko">Stanowisko:</label>
+			<select form="add" id="stanowisko" th:field="*{pracownik.nrstanowiska}">
+				<option th:each = "stanowisko: ${listStanowisko}" th:value="${stanowisko.nrstanowiska}" th:text="${stanowisko.nazwa}"></option>
+			</select>
+			<label for="konto">Nr konta:</label>
+			<input type="text" id="konto" placeholder="00000000000000000000000000" onkeypress="return isNumberKey(event)" onblur="checkAccount(event)" th:field="*{pracownik.nrkonta}">
+			<label for="telefon">Nr telefonu:</label>
+			<input type="text" id="telefon" placeholder="000000000" onkeypress="return isNumberKey(event)" onblur="checkPhone(event)" th:field="*{pracownik.nrtelefonu}">
+			<label for="pesel">PESEL:</label>
+			<input type="text" id="pesel" placeholder="00000000000" onkeypress="return isNumberKey(event)" onblur="checkPesel(event)" th:field="*{pracownik.pesel}">
+			<label for="miasto">Miasto:</label>
+			<input type="text" id="miasto" placeholder="Warszawa" th:field="*{adres.miasto}">
+			<label for="ulica">Ulica:</label>
+			<input type="text"id="ulica" placeholder="Przykładowa" th:field="*{adres.ulica}">
+			<label for="budynek">Nr budynku:</label>
+			<input type="text" id="budynek" placeholder="00A" th:field="*{adres.nrbudynku}">
+			<label for="lokal">Nr lokalu:</label>
+			<input type="text" id="lokal" placeholder="00" onkeypress="return isNumberKey(event)" th:field="*{adres.nrlokalu}">
+			<label for="kod">Kod pocztowy:</label>
+			<input type="text" id="kod" placeholder="00-000" onkeypress="return isCodeLegit(event)" onblur="checkCode(event)" th:field="*{adres.kodpocztowy}">
+			<a class="button" th:href="@{/pracownicy}"><i class="fas fa-angle-right"></i>Anuluj</a>
+			<button type="submit">Zapisz<i class="fas fa-save"></i></button>
+		</form>
+		
+		<!-- KOMUNIKAT BŁEDU -->
+		<div class="error" th:if="${param.error}">Wprowadzono nieprawidłowe dane. Spróbuj ponownie.</div>
+		
+		<!-- KONIEC TREŚCI -->
+
+		<!-- STOPKA -->
+		<p class="footer">&#169; Jedziesz Daleko 2022</p>
+		
+	</body>
+</html>

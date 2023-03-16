@@ -1,0 +1,107 @@
+
+/* NAGŁÓWEK PODSTRONY */
+
+.title {
+	width: 95rem;
+	display: grid;
+	grid-template-columns: auto auto;
+	place-items:center;
+	justify-items: start;
+	
+	padding: 1.5rem 1rem;
+	padding-right: 3.5rem;
+}
+
+/* PRZYCISK [Nowy pracownik] */
+
+.title a {
+	justify-self: end;
+	
+	font-size: 1.2rem;
+	font-family: OpenSans-Regular;
+	
+	-webkit-transition: color 0.1s;
+	-moz-transition: color 0.1s;
+	-o-transition: color 0.1s;
+	transition: color 0.1s;
+}
+
+.title i {
+	color: #3D9970;
+	margin-right: 0.5rem
+}
+
+.title a:hover {
+	color: #3D9970;
+}
+
+/* KOREKTA NAGŁÓWKA DLA MAŁYCH TABEL */
+
+.short {
+	width: 50rem;
+	padding-right: 2rem;
+}
+
+/* TABELA */
+
+table {
+	width: 95rem;
+	background: #FFF;
+	border-collapse: collapse;
+	overflow: hidden;
+	text-align: left;
+	
+	-webkit-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	-moz-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+}
+
+/* NAGŁÓWEK TABELI */
+
+thead {
+	color: #3D9970;
+	font-family: OpenSans-Bold;
+	border-bottom: solid 0.1rem;
+	
+	-webkit-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	-moz-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+}
+
+th {
+	padding: 1.5rem 1rem;
+}
+
+/* WIERSZE TABELI */
+
+tr {
+	-webkit-transition: background 0.2s;
+	-moz-transition: background 0.2s;
+	-o-transition: background 0.2s;
+	transition: background 0.2s;
+}
+
+tr:nth-child(even) {
+	background: #EEE;
+}
+
+tbody tr:hover {
+	background: rgba(61,153,112,0.15);
+}
+
+/* KOMÓRKA TABELI */
+
+td {
+	padding: 1rem;
+}
+
+/* IKONY [EDYTUJ} [USUŃ] */
+
+td a {
+	justify-self: center;
+	color: #3D9970;
+	cursor: pointer;
+}
+.fa-trash-alt{
+    color:#FF4136;
+}

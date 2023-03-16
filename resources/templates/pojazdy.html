@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html
+	lang="pl-PL"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+		<link rel="stylesheet" type="text/css" href="./styles/layout.css">
+		<link rel="stylesheet" type="text/css" href="./styles/tables.css">
+		<title>JedzieszDaleko - Pojazdy</title>
+	</head>
+	<body>
+	
+		<!-- NAGŁÓWEK -->
+		<div class="header">
+
+			<!-- LOGO -->
+			<a class="logo" th:href="@{/}">Jedziesz<span>Daleko</span></a>
+
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pracownicy}"><i class="fas fa-angle-right"></i>Pracownicy</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pojazdy}"><i class="fas fa-angle-right"></i>Pojazdy</a>
+			<a class="menu" th:unless="@{${principal}==admin}" ></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/przystanki}"><i class="fas fa-angle-right"></i>Przystanki</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/biura}"><i class="fas fa-angle-right"></i>Biura</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}!=null}" th:href="@{/bilety}"><i class="fas fa-angle-right"></i>O mnie</a>
+			<a class="menu" th:unless="@{${principal}!=null}"></a>
+			<a class="menu" th:if="${principal!=null}" th:text="@{Wyloguj,}+${principal}" th:href="@{/logout}"><i class="fas fa-angle-right"></i>Wylogowanie</a>
+			<a class="menu" th:if="${principal==null}" th:text="@{Zaloguj się}" th:href="@{/login}"><i class="fas fa-angle-right"></i>Zalogowanie</a>
+		</div>
+	
+		<!-- TREŚĆ -->
+		
+		<!-- NAGŁÓWEK PODSTRONY -->
+		<div class="title">
+			Tabela pojazdów:
+			<a th:href="@{/newpojazd}"><i class="fas fa-angle-right"></i>Nowy pojazd</a>
+		</div>
+		
+		<!-- TABELA -->
+		<table>
+			<thead>
+				<tr>
+					<th>Marka</th>
+					<th>Model</th>
+					<th>Rok produkcji</th>
+					<th>Nr rejestracyjny</th>
+					<th>Data zakupu</th>
+					<th>Data ubezpieczenia</th>
+					<th>Biuro</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="pojazd: ${listPojazd}">
+					<td th:text="${pojazd.marka}"></td>
+					<td th:text="${pojazd.model}"></td>
+					<td th:text="${pojazd.rokprodukcji}"></td>
+					<td th:text="${pojazd.nrrejestracyjny}"></td>
+					<td th:text="${pojazd.datazakupu}"></td>
+					<td th:text="${pojazd.dataubezpieczenia}"></td>
+					<td th:each="biuro: ${listBiuro}" th:if="${biuro.nrbiura == pojazd.nrbiura}" th:text="${biuro.nazwa}"></td>
+					<td><a th:href="@{/pojazdy/edit/}+${pojazd.nrpojazdu}"><i class="fas fa-pencil-alt"></i></a></td>
+					<td><a th:href="@{/pojazdy/delete/}+${pojazd.nrpojazdu}" onclick="return confirm('Na pewno chcesz usunac pojazd?')"><i class="fas fa-trash-alt"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<!-- KONIEC TREŚCI -->
+
+		<!-- STOPKA -->
+		<p class="footer">&#169; Jedziesz Daleko 2022</p>
+		
+	</body>
+</html>

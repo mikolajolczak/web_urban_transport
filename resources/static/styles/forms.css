@@ -1,0 +1,141 @@
+/* FORMULARZE */
+
+form {
+	width: 50rem;
+	display: grid;
+	grid-template-columns: 10rem 20rem;
+	grid-column-gap: 2rem;
+	grid-row-gap: 1rem;
+	align-items: center;
+	
+	background: #FFF;
+	font-size: 1.2rem;
+	padding: 2.5rem 9rem;
+		
+	-webkit-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	-moz-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+}
+
+/* ABOUT */
+
+form p:nth-child(odd) {
+	color: #999;
+}
+
+/* POLA FORMULARZY */
+
+select, input {
+	width: 20rem;
+	font-size: 1.2rem;
+	border: solid #CCC 0.1rem;
+	outline: none;
+	padding: 0.5rem;
+	
+	-webkit-transition: border-color 0.1s;
+	-moz-transition: border-color 0.1s;
+	-o-transition: border-color 0.1s;
+	transition: border-color 0.1s;
+}
+
+select:focus, select:hover, input:focus, input:hover {
+	border-color: #3D9970;
+}
+
+::-webkit-input-placeholder {
+	color: #CCC;
+	font-family: OpenSans-Regular;
+}
+
+::-ms-input-placeholder {
+	color: #CCC;
+	font-family: OpenSans-Regular;
+}
+
+:-ms-input-placeholder {
+	color: #CCC;
+	font-family: OpenSans-Regular;
+}
+
+::-moz-placeholder {
+	color: #CCC;
+	font-family: OpenSans-Regular;
+}
+
+:-moz-placeholder {
+	color: #CCC;
+	font-family: OpenSans-Regular;
+}
+
+::placeholder {
+	color: #CCC;
+	font-family: OpenSans-Regular;
+}
+
+/* PRZYCISKI */
+
+button {
+	width: 20rem;
+	height: 3rem;
+	background: #FFF;
+	cursor: pointer;
+	
+	font-size: 1.2rem;
+	color: #3D9970;
+	border: solid 0.1rem;
+	
+	margin-top: 1rem;
+	padding: 0;
+	
+	-webkit-transition: border-radius 0.1s;
+	-moz-transition: border-radius 0.1s;
+	-o-transition: border-radius 0.1s;
+	transition: border-radius 0.1s;
+}
+
+button i {
+	margin-left: 0.5rem
+}
+
+button:hover {
+	border-radius: 1rem;
+}
+
+/* KOMUNIKATY BŁĘDU */
+
+.error {
+	width: 50rem;
+	background: #FFF;
+	
+	color: #FF4136;
+	font-size: 1.2rem;
+	text-align: center;
+
+	-webkit-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	-moz-box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	box-shadow: 0rem 0rem 1rem 0rem rgba(0,0,0,0.2);
+	
+	padding: 2.5rem;
+}
+
+/* FORMATOWANIE BŁĘDÓW */
+
+.err {
+	border: solid #FF4136 0.15rem;
+}
+
+.err:hover, .err:focus {
+	border: solid #FF4136 0.15rem;
+}
+
+/* KODY BŁĘDÓW */
+
+.error p {
+	font-family: OpenSans-Bold;
+	font-size: 5rem;
+	margin-bottom: 1.5rem;
+}
+
+.error i{
+	margin-right: 2rem;
+}

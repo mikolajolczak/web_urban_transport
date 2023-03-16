@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html
+	lang="pl-PL"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+		<link rel="stylesheet" type="text/css" href="./styles/layout.css">
+		<link rel="stylesheet" type="text/css" href="./styles/tables.css">
+		<title>JedzieszDaleko - Bilety</title>
+	</head>
+	<body>
+	
+		<!-- NAGŁÓWEK -->
+		<div class="header">
+
+			<!-- LOGO -->
+			<a class="logo" th:href="@{/}">Jedziesz<span>Daleko</span></a>
+
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pracownicy}"><i class="fas fa-angle-right"></i>Pracownicy</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/pojazdy}"><i class="fas fa-angle-right"></i>Pojazdy</a>
+			<a class="menu" th:unless="@{${principal}==admin}" ></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/przystanki}"><i class="fas fa-angle-right"></i>Przystanki</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}==admin}" th:href="@{/biura}"><i class="fas fa-angle-right"></i>Biura</a>
+			<a class="menu" th:unless="@{${principal}==admin}"></a>
+			<a class="menu" th:if="@{${principal}!=null}" th:href="@{/bilety}"><i class="fas fa-angle-right"></i>O mnie</a>
+			<a class="menu" th:unless="@{${principal}!=null}"></a>
+			<a class="menu" th:if="${principal!=null}" th:text="@{Wyloguj,}+${principal}" th:href="@{/logout}"><i class="fas fa-angle-right"></i>Wylogowanie</a>
+			<a class="menu" th:if="${principal==null}" th:text="@{Zaloguj się}" th:href="@{/login}"><i class="fas fa-angle-right"></i>Zalogowanie</a>
+		</div>
+	
+		<!-- TREŚĆ -->
+		
+		<!-- NAGŁÓWEK PODSTRONY -->
+		<div class="title short">
+			Tabela biletów:
+			<a href="new_bilet.html"><i class="fas fa-angle-right"></i>Nowy bilet</a>
+		</div>
+		
+		<!-- TABELA -->
+		<table style="width: 50rem">
+			<thead>
+				<tr>
+					<th>Rodzaj</th>
+					<th>Ważność</th>
+					<th>Cena</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Ulgowy</td>
+					<td>20 min</td>
+					<td>2,5 PLN</td>
+					<td><a><i class="fas fa-pencil-alt"></i></a></td>
+					<td><a><i class="fas fa-trash-alt"></i></a></td>
+				</tr>
+				<tr>
+					<td>Normalny</td>
+					<td>20 min</td>
+					<td>5 PLN</td>
+					<td><a><i class="fas fa-pencil-alt"></i></a></td>
+					<td><a><i class="fas fa-trash-alt"></i></a></td>
+				</tr>
+				<tr>
+					<td>Tygodniowy</td>
+					<td>7 dni</td>
+					<td>20 PLN</td>
+					<td><a><i class="fas fa-pencil-alt"></i></a></td>
+					<td><a><i class="fas fa-trash-alt"></i></a></td>
+				</tr>
+				<tr>
+					<td>Miesięczny</td>
+					<td>30 dni</td>
+					<td>100 PLN</td>
+					<td><a><i class="fas fa-pencil-alt"></i></a></td>
+					<td><a><i class="fas fa-trash-alt"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<!-- KONIEC TREŚCI -->
+
+		<!-- STOPKA -->
+		<p class="footer">&#169; Mikołaj Olczak 2022</p>
+		
+	</body>
+</html>
