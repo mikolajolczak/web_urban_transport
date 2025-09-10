@@ -16,22 +16,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/addresses")
 public class AddressController {
   private final AddressService addressService;
+
   public AddressController(AddressService addressService) {
     this.addressService = addressService;
   }
+
   @PostMapping
   public ResponseEntity<Address> saveAddress(@Validated @RequestBody
                                              Address address) {
     Address saved = addressService.save(address);
     return ResponseEntity.ok(saved);
   }
+
   @GetMapping
   public ResponseEntity<List<Address>> getAllAddresses() {
     return ResponseEntity.ok(addressService.findAll());
   }
+
   @GetMapping
   @RequestMapping("/{id}")
   public ResponseEntity<Address> getAddress(@PathVariable int id) {
-    return addressService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    return addressService.findById(id).map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
   }
 }

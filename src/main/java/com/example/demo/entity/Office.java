@@ -23,4 +23,27 @@ public class Office {
       foreignKey = @ForeignKey(name = "FK_OFFICE_ADDRESS"))
   private Address address;
 
+  public int getOfficeId() {
+    return officeId;
+  }
+
+  public void setOfficeId(int officeIdParam) {
+    officeId = officeIdParam;
+  }
+
+  public String getOfficeName() {
+    return officeName;
+  }
+
+  public void setOfficeName(String officeNameParam) {
+    officeName = officeNameParam;
+  }
+
+  public Address getAddress() {
+    return address;
+  }
+
+  public void setAddress(Address addressParam) {
+    address = addressParam;
+  }
 }

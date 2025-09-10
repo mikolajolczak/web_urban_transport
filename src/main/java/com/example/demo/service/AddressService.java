@@ -22,6 +22,7 @@ public class AddressService {
   public List<Address> findAll() {
     return addressRepository.findAll();
   }
+
   public Optional<Address> findById(int id) {
     return addressRepository.findById(id);
   }

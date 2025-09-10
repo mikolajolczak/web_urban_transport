@@ -10,7 +10,8 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "ADDRESSES", uniqueConstraints = {@UniqueConstraint(
-    columnNames = {"STREET", "CITY", "BUILDING_NUMBER", "APARTMENT_NUMBER", "POSTAL_CODE"})})
+    columnNames = {"STREET", "CITY", "BUILDING_NUMBER", "APARTMENT_NUMBER",
+        "POSTAL_CODE"})})
 public class Address {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
