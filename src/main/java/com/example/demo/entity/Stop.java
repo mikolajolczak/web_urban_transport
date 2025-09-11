@@ -23,4 +23,28 @@ public class Stop {
   @JoinColumn(name = "ADDRESS_ID", nullable = false,
       foreignKey = @ForeignKey(name = "FK_STOP_ADDRESS"))
   private Address address;
+
+  public int getStopId() {
+    return stopId;
+  }
+
+  public void setStopId(int stopIdParam) {
+    stopId = stopIdParam;
+  }
+
+  public String getStopName() {
+    return stopName;
+  }
+
+  public void setStopName(String stopNameParam) {
+    stopName = stopNameParam;
+  }
+
+  public Address getAddress() {
+    return address;
+  }
+
+  public void setAddress(Address addressParam) {
+    address = addressParam;
+  }
 }
