@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,8 +29,7 @@ public class VehicleController {
     return ResponseEntity.ok(vehicleService.findAll());
   }
 
-  @GetMapping
-  @RequestMapping("/{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<Vehicle> findVehicleById(@PathVariable int id) {
     return vehicleService.findById(id).map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
@@ -40,16 +40,14 @@ public class VehicleController {
     return ResponseEntity.ok(vehicleService.save(vehicle));
   }
 
-  @PostMapping
-  @RequestMapping("/{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<Vehicle> updateVehicle(@RequestBody Vehicle vehicle,
                                                @PathVariable int id) {
     return vehicleService.update(id, vehicle).map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
   }
 
-  @DeleteMapping
-  @RequestMapping("/{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<?> deleteVehicle(@PathVariable int id) {
     return vehicleService.deleteById(id) ? ResponseEntity.ok().build()
         : ResponseEntity.notFound().build();

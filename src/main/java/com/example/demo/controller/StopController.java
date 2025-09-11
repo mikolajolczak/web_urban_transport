@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,22 +32,19 @@ public class StopController {
     return ResponseEntity.ok(stopService.save(stop));
   }
 
-  @DeleteMapping
-  @RequestMapping("/{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<Stop> deleteStop(@PathVariable int id) {
     return stopService.deleteById(id) ? ResponseEntity.ok().build()
         : ResponseEntity.notFound().build();
   }
 
-  @GetMapping
-  @RequestMapping("/{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<Stop> getStopById(@PathVariable int id) {
     return stopService.findById(id).map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
   }
 
-  @PostMapping
-  @RequestMapping("/{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<Stop> updateStop(@RequestBody Stop stop,
                                          @PathVariable int id) {
     return stopService.update(id, stop).map(ResponseEntity::ok)

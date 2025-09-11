@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api/route_stop")
+@RequestMapping("/api/routestop")
 public class RouteStopController {
   private final RouteStopService routeStopService;
 

@@ -33,8 +33,7 @@ public class AddressController {
     return ResponseEntity.ok(addressService.findAll());
   }
 
-  @GetMapping
-  @RequestMapping("/{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<Address> getAddress(@PathVariable int id) {
     return addressService.findById(id).map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
