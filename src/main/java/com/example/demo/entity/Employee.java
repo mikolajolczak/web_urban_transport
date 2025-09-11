@@ -46,4 +46,93 @@ public class Employee {
   @JoinColumn(name = "ADDRESS_ID", nullable = false,
       foreignKey = @ForeignKey(name = "FK_EMPLOYEE_ADDRESS"))
   private Address address;
+
+  public int getEmployeeId() {
+    return employeeId;
+  }
+
+  public void setEmployeeId(int employeeIdParam) {
+    employeeId = employeeIdParam;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstNameParam) {
+    firstName = firstNameParam;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastNameParam) {
+    lastName = lastNameParam;
+  }
+
+  public char getGender() {
+    return gender;
+  }
+
+  public void setGender(char genderParam) {
+    gender = genderParam;
+  }
+
+  public String getAccountNumber() {
+    return accountNumber;
+  }
+
+  public void setAccountNumber(String accountNumberParam) {
+    accountNumber = accountNumberParam;
+  }
+
+  public String getPersonalIdentificationNumber() {
+    return personalIdentificationNumber;
+  }
+
+  public void setPersonalIdentificationNumber(
+      String personalIdentificationNumberParam) {
+    personalIdentificationNumber = personalIdentificationNumberParam;
+  }
+
+  public Date getEmploymentDate() {
+    return employmentDate;
+  }
+
+  public void setEmploymentDate(Date employmentDateParam) {
+    employmentDate = employmentDateParam;
+  }
+
+  public Office getOffice() {
+    return office;
+  }
+
+  public void setOffice(Office officeParam) {
+    office = officeParam;
+  }
+
+  public Position getPosition() {
+    return position;
+  }
+
+  public void setPosition(Position positionParam) {
+    position = positionParam;
+  }
+
+  public Salary getSalary() {
+    return salary;
+  }
+
+  public void setSalary(Salary salaryParam) {
+    salary = salaryParam;
+  }
+
+  public Address getAddress() {
+    return address;
+  }
+
+  public void setAddress(Address addressParam) {
+    address = addressParam;
+  }
 }
