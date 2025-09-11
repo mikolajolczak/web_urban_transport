@@ -4,11 +4,11 @@ import com.example.demo.entity.Position;
 import com.example.demo.service.PositionService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/api/position")
 public class PositionController {
   private final PositionService positionService;

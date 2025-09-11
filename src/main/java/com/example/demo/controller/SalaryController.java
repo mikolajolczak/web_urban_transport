@@ -4,11 +4,11 @@ import com.example.demo.entity.Salary;
 import com.example.demo.service.SalaryService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/api/salary")
 public class SalaryController {
   private final SalaryService salaryService;
