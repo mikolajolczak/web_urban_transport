@@ -1,0 +1,18 @@
+:host {
+  justify-items: center;
+  align-items: center;
+  flex: 1
+}
+
+.title {
+  margin-top: 2rem;
+  color: #3D9970;
+  font-weight: bold;
+}
+
+div {
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  width: 50rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}

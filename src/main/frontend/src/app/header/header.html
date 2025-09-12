@@ -1,8 +1,8 @@
 <div>
 
-  <span class="logo">Going<span>Far</span></span>
-  @for (tab of tabs; track tab) {
-    <a>
+  <span class="logo" routerLink="">Going<span>Far</span></span>
+  @for (tab of Object.keys(tabs); track tab) {
+    <a routerLink="{{tabs[tab]}}">
       <fa-icon [icon]="faChevronRight"></fa-icon>
       {{ tab }}</a>
   }
