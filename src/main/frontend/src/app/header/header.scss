@@ -4,6 +4,8 @@ div {
   justify-content: flex-end;
   padding: 0.5rem;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  user-select: none;
+  align-items: center;
 }
 
 fa-icon {
@@ -19,6 +21,8 @@ fa-icon {
 
 .logo {
   cursor: pointer;
+  font-size: x-large;
+  font-weight: bold;
 }
 
 .logo span {
