@@ -1,20 +1,16 @@
-<div class="title">Witaj, ...</div>
-<div>
-  <p>Imię:</p>
-  <p>Nazwisko:</p>
-  <p>Płeć:</p>
-  <p>Biuro:</p>
-  <p>Wynagrodzenia:</p>
-  <p>Stanowisko</p>
-  <p>Nr konta:</p>
-  <p>Nr telefonu:</p>
-  <p>PESEL:</p>
-  <p>Miasto:</p>
-  <p>Ulica:</p>
-  <p>Nr budynku:</p>
-  <p>Nr lokalu:</p>
-  <p>Kod pocztowy:</p>
-  <a class="button"><i class="fas fa-angle-right"></i>Anuluj</a>
-  <button type="submit">Edytuj<i class="fas fa-user-edit"></i></button>
+<div class="form">
+  @for (item of employeeView; track item) {
+    <span class="row">
+    <p class="label">{{ item.label }}:</p><p>{{ item.value }}</p>
+    </span>
+  }
+  <span class="row">
+    <a class="button">
+      <fa-icon [icon]="faChevronRight"></fa-icon>
+      Cancel</a>
+
+    <a type="submit">Edit
+      <fa-icon [icon]="faUserEdit"></fa-icon>
+    </a></span>
 </div>
 

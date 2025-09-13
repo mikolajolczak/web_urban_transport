@@ -4,7 +4,7 @@ import {Position} from './position';
 import {Office} from './office';
 
 export interface Employee {
-  employeeId: number;
+  id: number;
   firstName: string;
   lastName: string;
   gender: string;
