@@ -4,6 +4,7 @@ import {HomeComponent} from '../home-component/home-component';
 import {AboutComponent} from '../about-component/about-component';
 import {VehicleComponent} from '../vehicle-component/vehicle-component';
 import {OfficeComponent} from '../office-component/office-component';
+import {EmployeeComponent} from '../employee-component/employee-component';
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -11,5 +12,6 @@ export const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'offices', component: OfficeComponent},
   {path: 'vehicles', component: VehicleComponent},
+  {path: 'employee', component: EmployeeComponent},
   {path: '**', redirectTo: 'error/404'}
 ];

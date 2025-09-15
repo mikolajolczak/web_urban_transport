@@ -1,0 +1,89 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: 10rem 20rem;
+  grid-column-gap: 2rem;
+  grid-row-gap: 1rem;
+  justify-self: center;
+  align-content: center;
+  background: #FFF;
+  font-size: 1.2rem;
+  padding: 2.5rem 4.5rem;
+}
+
+select, input {
+  width: 20rem;
+  font-size: 1.2rem;
+  border: solid #CCC 0.1rem;
+  outline: none;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  transition: border-color 0.1s;
+}
+
+select:focus, select:hover, input:focus, input:hover {
+  border-color: #3D9970;
+}
+
+::placeholder {
+  color: #CCC;;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  text-align: center;
+  color: #3D9970;
+  background-color: #ffffff;
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+  z-index: 0;
+  border: 0.2rem solid #3D9970;
+  border-radius: 1rem;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #3D9970;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+
+button:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover::before {
+  transform: scaleX(1);
+}
+
+.title {
+  width: 90rem;
+  background: #FFFFFF;
+
+  color: #3D9970;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  padding: 2rem 2.5rem;
+}
+
+label {
+  align-content: center;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
