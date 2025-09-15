@@ -3,6 +3,7 @@ import {Vehicle} from '../../entities/vehicle';
 import {faChevronRight, faFloppyDisk} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
+import {Office} from '../../entities/office';
 
 @Component({
   selector: 'app-edit-vehicle-modal',
@@ -20,8 +21,11 @@ export class EditVehicleModal {
   faChevronRight = faChevronRight;
   faFloppyDisk = faFloppyDisk;
 
-  offices = [
-    {id: 1, officeName: 'Warszawa'},
+  offices: Office[] = [
+    {
+      id: 1, officeName: 'Warszawa',
+      address: undefined
+    },
     {id: 2, officeName: 'Kraków'},
     {id: 3, officeName: 'Gdańsk'},
   ];
@@ -31,27 +35,21 @@ export class EditVehicleModal {
     this.close.emit();
   }
 
-  get purchaseYear(): number {
-    return this.vehicle.purchaseDate.getFullYear();
+  get purchaseDateString(): string {
+    return this.vehicle.purchaseDate ?
+      this.vehicle.purchaseDate.toISOString().split('T')[0] : '';
   }
 
-  set purchaseYear(year: number) {
-    if (this.vehicle.purchaseDate) {
-      this.vehicle.purchaseDate.setFullYear(+year);
-    } else {
-      this.vehicle.purchaseDate = new Date(+year, 0, 1);
-    }
+  set purchaseDateString(value: string) {
+    this.vehicle.purchaseDate = value ? new Date(value) : null;
   }
 
-  get insuranceYear(): number {
-    return this.vehicle.insuranceDate.getFullYear();
+  get insuranceDateString(): string {
+    return this.vehicle.insuranceDate ?
+      this.vehicle.insuranceDate.toISOString().split('T')[0] : '';
   }
 
-  set insuranceYear(year: number) {
-    if (this.vehicle.insuranceDate) {
-      this.vehicle.insuranceDate.setFullYear(+year);
-    } else {
-      this.vehicle.insuranceDate = new Date(+year, 0, 1);
-    }
+  set insuranceDateString(value: string) {
+    this.vehicle.insuranceDate = value ? new Date(value) : null;
   }
 }

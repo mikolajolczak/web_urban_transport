@@ -1,4 +1,4 @@
-<div class="title">New vehicle:</div>
+<div class="title">Vehicle:</div>
 
 <div>
   <label>Brand</label>
@@ -14,10 +14,10 @@
   <input type="text" [(ngModel)]="vehicle.registrationNumber">
 
   <label>Purchase Date</label>
-  <input type="text" [(ngModel)]="purchaseYear">
+  <input type="date" [(ngModel)]="purchaseDateString">
 
   <label>Insurance Date</label>
-  <input type="text" [(ngModel)]="insuranceYear">
+  <input type="date" [(ngModel)]="insuranceDateString">
 
   <label>Office</label>
   <select [(ngModel)]="vehicle.office.id">

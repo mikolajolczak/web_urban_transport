@@ -44,6 +44,42 @@ export class VehicleComponent implements OnInit {
     this.vehiclesView.splice(index, 1);
     this.confirmDelete.splice(index, 1);
   }
+  saveVehicle(vehicle: Vehicle) {
+    const index = this.vehicles.findIndex(v => v.vehicleId === vehicle.vehicleId);
+    console.log(index);
+    if(index === -1) {
+      this.vehicles.push(vehicle);
+      this.vehiclesView.push(this.mapper.mapToView(vehicle));
+      this.confirmDelete.push(false);
+    } else {
+      this.vehicles[index] = vehicle;
+      this.vehiclesView[index] = this.mapper.mapToView(vehicle);
+    }
+  }
+
+  createVehicle() {
+    this.chosenVehicle = {
+      vehicleId: this.vehicles.length + 1,
+      brand: '',
+      model: '',
+      productionYear: null,
+      registrationNumber: '',
+      purchaseDate: null,
+      insuranceDate: null,
+      office: {
+        id: 0,
+        officeName: '',
+        address: {
+          id: 0,
+          street: '',
+          city: '',
+          buildingNumber: '',
+          postalCode: ''
+        }
+      }
+    };
+    this.showModal = true;
+  }
 
   chosenVehicle!: Vehicle;
 
@@ -68,7 +104,7 @@ export class VehicleComponent implements OnInit {
         }
       }
     }, {
-      vehicleId: 0,
+      vehicleId: 1,
       brand: "1",
       productionYear: 2,
       model: "3",

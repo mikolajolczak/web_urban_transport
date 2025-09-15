@@ -1,6 +1,6 @@
 <div class="title">
   <span>Vehicles:</span>
-  <a>
+  <a (click)="createVehicle()">
     <fa-icon [icon]="faChevronRight"></fa-icon>
     New Vehicle</a>
 </div>
@@ -48,7 +48,7 @@
   @if (showModal) {
     <div class="overlay" (click)="closeModal()">
       <div class="modal" (click)="$event.stopPropagation()">
-        <app-edit-vehicle-modal (close)="closeModal()" [vehicle]="chosenVehicle"/>
+        <app-edit-vehicle-modal (close)="closeModal()" [vehicle]="chosenVehicle" (saveVehicle)="saveVehicle($event)"/>
       </div>
     </div>
   }
