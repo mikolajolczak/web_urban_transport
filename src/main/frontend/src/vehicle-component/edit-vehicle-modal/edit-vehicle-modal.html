@@ -1,0 +1,40 @@
+<div class="title">New vehicle:</div>
+
+<div>
+  <label>Brand</label>
+  <input type="text" [(ngModel)]="vehicle.brand">
+
+  <label>Model</label>
+  <input type="text" [(ngModel)]="vehicle.model">
+
+  <label>Production Year</label>
+  <input type="text" [(ngModel)]="vehicle.productionYear">
+
+  <label>Registration Number</label>
+  <input type="text" [(ngModel)]="vehicle.registrationNumber">
+
+  <label>Purchase Date</label>
+  <input type="text" [(ngModel)]="purchaseYear">
+
+  <label>Insurance Date</label>
+  <input type="text" [(ngModel)]="insuranceYear">
+
+  <label>Office</label>
+  <select [(ngModel)]="vehicle.office.id">
+    @for (office of offices; track office.id) {
+      <option [value]="office.id">
+        {{ office.officeName }}
+      </option>
+    }
+
+  </select>
+
+  <button (click)="close.emit()">
+    <fa-icon [icon]="faChevronRight"></fa-icon>
+    Cancel
+  </button>
+  <button (click)="save()">
+    Save
+    <fa-icon [icon]="faFloppyDisk"></fa-icon>
+  </button>
+</div>

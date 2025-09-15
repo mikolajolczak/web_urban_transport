@@ -9,6 +9,5 @@ export const routes: Routes = [
   {path: 'error/:code', component: ErrorComponent},
   {path: 'about', component: AboutComponent},
   {path: 'vehicles', component: VehicleComponent},
-  {path: 'vehicles/edit_vehicle', component: AboutComponent},
   {path: '**', redirectTo: 'error/404'}
 ];

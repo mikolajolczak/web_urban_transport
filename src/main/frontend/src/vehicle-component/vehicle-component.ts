@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {faChevronRight, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faChevronRight, faPencilAlt, faTrashAlt, faXmark} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {Vehicle} from '../entities/vehicle';
 import {VehicleMapperService} from '../services/vehicle-mapper.service';
 import {VehicleView} from '../views/vehicle-view.model';
-import {RouterLink} from '@angular/router';
+import {EditVehicleModal} from './edit-vehicle-modal/edit-vehicle-modal';
 
 @Component({
   selector: 'app-vehicle-component',
-  imports: [FontAwesomeModule, RouterLink],
+  imports: [FontAwesomeModule, EditVehicleModal],
   templateUrl: './vehicle-component.html',
   styleUrl: './vehicle-component.scss'
 })
@@ -16,6 +16,36 @@ export class VehicleComponent implements OnInit {
   faPencilAlt = faPencilAlt
   faTrashAlt = faTrashAlt
   faChevronRight = faChevronRight
+  faCheck = faCheck;
+  faXmark = faXmark;
+
+  showModal = false;
+  confirmDelete: boolean[] = [];
+
+  openModal(vehicle: Vehicle) {
+    this.showModal = true;
+    this.chosenVehicle = vehicle;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  askDelete(index: number) {
+    this.confirmDelete[index] = true;
+  }
+
+  cancelDelete(index: number) {
+    this.confirmDelete[index] = false;
+  }
+
+  removeVehicle(index: number) {
+    this.vehicles.splice(index, 1);
+    this.vehiclesView.splice(index, 1);
+    this.confirmDelete.splice(index, 1);
+  }
+
+  chosenVehicle!: Vehicle;
 
   vehicles: Vehicle[] = [
     {
@@ -61,6 +91,7 @@ export class VehicleComponent implements OnInit {
   labels: VehicleView[];
 
   constructor(private mapper: VehicleMapperService) {
+    this.confirmDelete = this.vehicles.map(() => false);
     this.labels = this.mapper.mapToView({
       brand: '',
       insuranceDate: new Date,

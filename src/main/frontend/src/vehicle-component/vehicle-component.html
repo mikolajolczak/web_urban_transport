@@ -15,18 +15,43 @@
   </tr>
   </thead>
   <tbody>
-    @for (vehicle of vehiclesView; track vehicle) {
+    @for (vehicle of vehicles; let i = $index; track vehicle) {
       <tr>
-        @for (item of vehicle; track item) {
+        @for (item of vehiclesView[i]; track item) {
           <td>{{ item.value }}</td>
         }
-        <td><a routerLink="edit_vehicle">
-          <fa-icon [icon]="faPencilAlt"></fa-icon>
-        </a></td>
-        <td><a class="delete">
-          <fa-icon [icon]="faTrashAlt"></fa-icon>
-        </a></td>
+        <td class="action">
+          <a (click)="openModal(vehicle)">
+            <fa-icon [icon]="faPencilAlt"></fa-icon>
+          </a>
+        </td>
+        <td (mouseleave)="cancelDelete(i)" class="action">
+          @if (!confirmDelete[i]) {
+            <a class="delete" (click)="askDelete(i)">
+
+              <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </a>
+          } @else {
+            <a (click)="cancelDelete(i)" class="delete">
+              <fa-icon [icon]="faXmark"></fa-icon>
+            </a>
+            <a (click)="removeVehicle(i)">
+              <fa-icon [icon]="faCheck"></fa-icon>
+            </a>
+          }
+
+        </td>
       </tr>
     }
   </tbody>
+
+  @if (showModal) {
+    <div class="overlay" (click)="closeModal()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <app-edit-vehicle-modal (close)="closeModal()" [vehicle]="chosenVehicle"/>
+      </div>
+    </div>
+  }
+
+
 </table>
