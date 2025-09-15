@@ -30,11 +30,6 @@ export class EditVehicleModal {
     {id: 3, officeName: 'Gdańsk'},
   ];
 
-  save() {
-    this.saveVehicle.emit(this.vehicle);
-    this.close.emit();
-  }
-
   get purchaseDateString(): string {
     return this.vehicle.purchaseDate ?
       this.vehicle.purchaseDate.toISOString().split('T')[0] : '';
@@ -51,5 +46,10 @@ export class EditVehicleModal {
 
   set insuranceDateString(value: string) {
     this.vehicle.insuranceDate = value ? new Date(value) : null;
+  }
+
+  save() {
+    this.saveVehicle.emit(this.vehicle);
+    this.close.emit();
   }
 }

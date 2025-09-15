@@ -2,22 +2,22 @@
 
 <div>
   <label>Brand</label>
-  <input type="text" [(ngModel)]="vehicle.brand">
+  <input [(ngModel)]="vehicle.brand" type="text">
 
   <label>Model</label>
-  <input type="text" [(ngModel)]="vehicle.model">
+  <input [(ngModel)]="vehicle.model" type="text">
 
   <label>Production Year</label>
-  <input type="text" [(ngModel)]="vehicle.productionYear">
+  <input [(ngModel)]="vehicle.productionYear" type="text">
 
   <label>Registration Number</label>
-  <input type="text" [(ngModel)]="vehicle.registrationNumber">
+  <input [(ngModel)]="vehicle.registrationNumber" type="text">
 
   <label>Purchase Date</label>
-  <input type="date" [(ngModel)]="purchaseDateString">
+  <input [(ngModel)]="purchaseDateString" type="date">
 
   <label>Insurance Date</label>
-  <input type="date" [(ngModel)]="insuranceDateString">
+  <input [(ngModel)]="insuranceDateString" type="date">
 
   <label>Office</label>
   <select [(ngModel)]="vehicle.office.id">

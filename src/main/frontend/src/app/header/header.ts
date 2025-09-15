@@ -21,7 +21,6 @@ export class Header {
   faChevronRight = faChevronRight;
   tabs = tabs;
   logged = false;
-  protected readonly Symbol = Symbol;
   protected readonly Object = Object;
 
   toggleLogin() {

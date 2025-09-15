@@ -6,7 +6,7 @@
 }
 
 .title {
-  width: 80vw;
+  width: 60vw;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -42,7 +42,7 @@
 }
 
 table {
-  width: 80vw;
+  width: 60vw;
   background: #FFF;
   border-collapse: collapse;
   overflow: hidden;
@@ -58,7 +58,7 @@ thead {
 
 th {
   padding: 1.5rem 1rem;
-  flex: 0.19;
+  flex: 0.4;
   overflow: hidden;
   align-self: center;
 }
@@ -78,7 +78,7 @@ tbody tr:hover {
 
 td {
   padding: 1rem;
-  flex: 0.19;
+  flex: 0.4;
 }
 
 td a {
@@ -119,6 +119,7 @@ td .delete {
   justify-content: center;
   display: flex;
   gap: 0.5rem;
+  flex: 0.1;
 }
 
 .title a:hover {

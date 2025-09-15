@@ -21,68 +21,7 @@ export class VehicleComponent implements OnInit {
 
   showModal = false;
   confirmDelete: boolean[] = [];
-
-  openModal(vehicle: Vehicle) {
-    this.showModal = true;
-    this.chosenVehicle = vehicle;
-  }
-
-  closeModal() {
-    this.showModal = false;
-  }
-
-  askDelete(index: number) {
-    this.confirmDelete[index] = true;
-  }
-
-  cancelDelete(index: number) {
-    this.confirmDelete[index] = false;
-  }
-
-  removeVehicle(index: number) {
-    this.vehicles.splice(index, 1);
-    this.vehiclesView.splice(index, 1);
-    this.confirmDelete.splice(index, 1);
-  }
-  saveVehicle(vehicle: Vehicle) {
-    const index = this.vehicles.findIndex(v => v.vehicleId === vehicle.vehicleId);
-    console.log(index);
-    if(index === -1) {
-      this.vehicles.push(vehicle);
-      this.vehiclesView.push(this.mapper.mapToView(vehicle));
-      this.confirmDelete.push(false);
-    } else {
-      this.vehicles[index] = vehicle;
-      this.vehiclesView[index] = this.mapper.mapToView(vehicle);
-    }
-  }
-
-  createVehicle() {
-    this.chosenVehicle = {
-      vehicleId: this.vehicles.length + 1,
-      brand: '',
-      model: '',
-      productionYear: null,
-      registrationNumber: '',
-      purchaseDate: null,
-      insuranceDate: null,
-      office: {
-        id: 0,
-        officeName: '',
-        address: {
-          id: 0,
-          street: '',
-          city: '',
-          buildingNumber: '',
-          postalCode: ''
-        }
-      }
-    };
-    this.showModal = true;
-  }
-
   chosenVehicle!: Vehicle;
-
   vehicles: Vehicle[] = [
     {
       vehicleId: 0,
@@ -125,6 +64,7 @@ export class VehicleComponent implements OnInit {
     }
   ]
   labels: VehicleView[];
+  vehiclesView: VehicleView[][] = [];
 
   constructor(private mapper: VehicleMapperService) {
     this.confirmDelete = this.vehicles.map(() => false);
@@ -150,8 +90,64 @@ export class VehicleComponent implements OnInit {
     })
   }
 
+  openModal(vehicle: Vehicle) {
+    this.showModal = true;
+    this.chosenVehicle = vehicle;
+  }
 
-  vehiclesView: VehicleView[][] = [];
+  closeModal() {
+    this.showModal = false;
+  }
+
+  askDelete(index: number) {
+    this.confirmDelete[index] = true;
+  }
+
+  cancelDelete(index: number) {
+    this.confirmDelete[index] = false;
+  }
+
+  removeVehicle(index: number) {
+    this.vehicles.splice(index, 1);
+    this.vehiclesView.splice(index, 1);
+    this.confirmDelete.splice(index, 1);
+  }
+
+  saveVehicle(vehicle: Vehicle) {
+    const index = this.vehicles.findIndex(v => v.vehicleId === vehicle.vehicleId);
+    if (index === -1) {
+      this.vehicles.push(vehicle);
+      this.vehiclesView.push(this.mapper.mapToView(vehicle));
+      this.confirmDelete.push(false);
+    } else {
+      this.vehicles[index] = vehicle;
+      this.vehiclesView[index] = this.mapper.mapToView(vehicle);
+    }
+  }
+
+  createVehicle() {
+    const vehicle: Vehicle = {
+      vehicleId: this.vehicles.length + 1,
+      brand: '',
+      model: '',
+      productionYear: null,
+      registrationNumber: '',
+      purchaseDate: null,
+      insuranceDate: null,
+      office: {
+        id: 0,
+        officeName: '',
+        address: {
+          id: 0,
+          street: '',
+          city: '',
+          buildingNumber: '',
+          postalCode: ''
+        }
+      }
+    };
+    this.openModal(vehicle);
+  }
 
   ngOnInit(): void {
     for (let vehicle of this.vehicles) {

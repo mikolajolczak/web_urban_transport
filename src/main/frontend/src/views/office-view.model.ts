@@ -1,4 +1,4 @@
-export interface VehicleView {
+export interface OfficeView {
   label: string;
   value: string;
 }

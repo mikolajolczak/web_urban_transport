@@ -30,8 +30,9 @@ div {
   justify-content: space-between;
   padding: 0 7rem 0 7rem;
 }
+
 .row:last-child {
-  margin-top:2rem;
+  margin-top: 2rem;
 }
 
 p {
@@ -56,6 +57,7 @@ a {
   border: 0.2rem solid #3D9970;
   border-radius: 1rem;
 }
+
 a::before {
   content: "";
   position: absolute;
