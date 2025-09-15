@@ -1,0 +1,91 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex:1;
+}
+
+.title {
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem 0;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.title a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.1s;
+  margin-left: auto;
+  margin-right: 1.5rem;
+}
+.title span{
+  margin-left: 1.5rem;
+  color: #3D9970;
+  font-weight: bold;
+  font-size: x-large
+}
+
+
+.title i {
+  color: #3D9970;
+}
+
+.title a:hover {
+  color: #3D9970;
+}
+
+table {
+  width: 80vw;
+  background: #FFF;
+  border-collapse: collapse;
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+}
+
+thead {
+  color: #3D9970;
+  border-bottom: solid 0.1rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+}
+
+th {
+  padding: 1.5rem 1rem;
+  flex:0.19;
+  overflow: hidden;
+  align-self: center;
+}
+
+tr {
+  transition: background 0.2s;
+  display: flex;
+}
+
+tr:nth-child(even) {
+  background: #EEE;
+}
+
+tbody tr:hover {
+  background: rgba(61, 153, 112, 0.15);
+}
+
+td {
+  padding: 1rem;
+  flex:0.19;
+}
+
+td a {
+  justify-self: center;
+  color: #3D9970;
+  cursor: pointer;
+}
+
+td .delete {
+  color: #FF4136;
+}

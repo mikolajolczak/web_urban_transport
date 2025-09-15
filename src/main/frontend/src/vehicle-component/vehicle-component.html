@@ -1,0 +1,32 @@
+<div class="title">
+  <span>Vehicles:</span>
+  <a>
+    <fa-icon [icon]="faChevronRight"></fa-icon>
+    New Vehicle</a>
+</div>
+<table>
+  <thead>
+  <tr>
+    @for (item of labels; track item) {
+      <th>{{ item.label }}</th>
+    }
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (vehicle of vehiclesView; track vehicle) {
+      <tr>
+        @for (item of vehicle; track item) {
+          <td>{{ item.value }}</td>
+        }
+        <td><a routerLink="edit_vehicle">
+          <fa-icon [icon]="faPencilAlt"></fa-icon>
+        </a></td>
+        <td><a class="delete">
+          <fa-icon [icon]="faTrashAlt"></fa-icon>
+        </a></td>
+      </tr>
+    }
+  </tbody>
+</table>

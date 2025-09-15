@@ -1,0 +1,96 @@
+import {Component, OnInit} from '@angular/core';
+import {faChevronRight, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {Vehicle} from '../entities/vehicle';
+import {VehicleMapperService} from '../services/vehicle-mapper.service';
+import {VehicleView} from '../views/vehicle-view.model';
+import {RouterLink} from '@angular/router';
+
+@Component({
+  selector: 'app-vehicle-component',
+  imports: [FontAwesomeModule, RouterLink],
+  templateUrl: './vehicle-component.html',
+  styleUrl: './vehicle-component.scss'
+})
+export class VehicleComponent implements OnInit {
+  faPencilAlt = faPencilAlt
+  faTrashAlt = faTrashAlt
+  faChevronRight = faChevronRight
+
+  vehicles: Vehicle[] = [
+    {
+      vehicleId: 0,
+      brand: "1",
+      productionYear: 2,
+      model: "3",
+      registrationNumber: "3",
+      purchaseDate: new Date(),
+      insuranceDate: new Date(),
+      office: {
+        id: 1,
+        officeName: "1",
+        address: {
+          id: 1,
+          street: "1",
+          city: "1",
+          buildingNumber: "1",
+          postalCode: "2"
+        }
+      }
+    }, {
+      vehicleId: 0,
+      brand: "1",
+      productionYear: 2,
+      model: "3",
+      registrationNumber: "3",
+      purchaseDate: new Date(),
+      insuranceDate: new Date(),
+      office: {
+        id: 1,
+        officeName: "asdasasd",
+        address: {
+          id: 1,
+          street: "1",
+          city: "1",
+          buildingNumber: "1",
+          postalCode: "2"
+        }
+      }
+    }
+  ]
+  labels: VehicleView[];
+
+  constructor(private mapper: VehicleMapperService) {
+    this.labels = this.mapper.mapToView({
+      brand: '',
+      insuranceDate: new Date,
+      model: '',
+      office: {
+        id: 0,
+        officeName: "",
+        address: {
+          id: 0,
+          street: "",
+          city: "",
+          buildingNumber: "",
+          postalCode: ""
+        }
+      },
+      productionYear: 0,
+      purchaseDate: new Date,
+      registrationNumber: '',
+      vehicleId: 0
+    })
+  }
+
+
+  vehiclesView: VehicleView[][] = [];
+
+  ngOnInit(): void {
+    for (let vehicle of this.vehicles) {
+      this.vehiclesView.push(this.mapper.mapToView(vehicle));
+    }
+
+  }
+
+}
