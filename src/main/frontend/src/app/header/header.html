@@ -1,18 +1,20 @@
 <div>
 
   <span class="logo" routerLink="">Going<span>Far</span></span>
-  @for (tab of Object.keys(tabs); track tab) {
-    <a routerLink="{{tabs[tab]}}">
+  @for (tab of tabs; track tab) {
+    @if (hasRole(tab.roles)){
+    <a routerLink="{{tab.url}}">
       <fa-icon [icon]="faChevronRight"></fa-icon>
-      {{ tab }}</a>
+      {{ tab.name }}</a>
+    }
   }
   <span class="container">
-  @if (logged) {
-    <a (click)="toggleLogin()">
+  @if (isLoggedIn()) {
+    <a (click)="tryLogout()" >
       <fa-icon [icon]="faChevronRight"></fa-icon>
       Sign Out</a>
   } @else {
-    <a (click)="toggleLogin()">
+    <a routerLink="/login">
       <fa-icon [icon]="faChevronRight"></fa-icon>
       &nbsp;Sign In </a>
   }
