@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from '../entities/employee';
-import {EmployeeView} from '../views/employee-view.model';
+import {TableViewModel} from '../views/table-view.model';
 import {EmployeeMapperService} from '../services/employee-mapper.service';
 import {faChevronRight, faUserEdit} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -51,7 +51,7 @@ export class AboutComponent implements OnInit {
     }
   };
 
-  employeeView: EmployeeView[] = [];
+  employeeView: TableViewModel[] = [];
   faChevronRight = faChevronRight;
   faUserEdit = faUserEdit;
 

@@ -1,0 +1,55 @@
+<div class="title" [style.width]="tableWidth">
+  <span>{{ title }}:</span>
+  <a (click)="onCreate()">
+    <fa-icon [icon]="faChevronRight"></fa-icon>
+    {{ createButtonText }}
+  </a>
+</div>
+
+<table [style.width]="tableWidth">
+  <thead>
+  <tr>
+    @for (column of columns; track column) {
+      <th>{{ column.label }}</th>
+    }
+    <th class="action"></th>
+    <th class="action"></th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (item of items; let i = $index; track item) {
+      <tr>
+        @for (column of columns; track column) {
+          <td>{{ getItemValue(item, column.value) }}</td>
+        }
+        <td class="action">
+          <a (click)="onEdit(item)">
+            <fa-icon [icon]="faPencilAlt"></fa-icon>
+          </a>
+        </td>
+        <td (mouseleave)="cancelDelete(i)" class="action">
+          @if (!confirmDelete[i]) {
+            <a class="delete" (click)="askDelete(i)">
+              <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </a>
+          } @else {
+            <a (click)="cancelDelete(i)" class="delete">
+              <fa-icon [icon]="faXmark"></fa-icon>
+            </a>
+            <a (click)="removeItem(i)">
+              <fa-icon [icon]="faCheck"></fa-icon>
+            </a>
+          }
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@if (showModal) {
+  <div class="overlay" (click)="onCloseModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <ng-content></ng-content>
+    </div>
+  </div>
+}

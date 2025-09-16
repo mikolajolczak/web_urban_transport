@@ -1,55 +1,14 @@
-<div class="title">
-  <span>Employees:</span>
+<app-generic-table
+  title="Employees"
+  createButtonText="New employee"
+  [items]="itemsView"
+  [columns]="tableColumns"
+  [showModal]="showModal"
+  tableWidth="95vw"
+  (create)="createItem()"
+  (edit)="openModal($event)"
+  (delete)="removeItem($event)"
+  (closeModal)="closeModal()">
 
-  <a (click)="createOffice()">
-    <fa-icon [icon]="faChevronRight"></fa-icon>
-    New employee</a>
-</div>
-
-<table>
-  <thead>
-  <tr>
-    @for (label of labels; track label) {
-      <th>{{ label.label }}</th>
-    }
-    <th class="action"></th>
-    <th class="action"></th>
-  </tr>
-  </thead>
-  <tbody>
-    @for (employee of employees; let i = $index; track employee) {
-      <tr>
-        @for (item of employeeView[i]; track item) {
-          <td>{{ item.value }}</td>
-        }
-        <td class="action"><a (click)="openModal(employee)">
-          <fa-icon [icon]="faPencilAlt"></fa-icon>
-        </a></td>
-        <td (mouseleave)="cancelDelete(i)" class="action">
-          @if (!confirmDelete[i]) {
-            <a class="delete" (click)="askDelete(i)">
-
-              <fa-icon [icon]="faTrashAlt"></fa-icon>
-            </a>
-          } @else {
-            <a (click)="cancelDelete(i)" class="delete">
-              <fa-icon [icon]="faXmark"></fa-icon>
-            </a>
-            <a (click)="removeOffice(i)">
-              <fa-icon [icon]="faCheck"></fa-icon>
-            </a>
-          }
-
-        </td>
-      </tr>
-    }
-  </tbody>
-  @if (showModal) {
-    <div class="overlay" (click)="closeModal()">
-      <div class="modal" (click)="$event.stopPropagation()">
-        <app-edit-employee-modal [employee]="chosenEmployee" (close)="closeModal()"
-                                 (saveEmployee)="saveEmployee($event)"></app-edit-employee-modal>
-      </div>
-    </div>
-  }
-</table>
+  <app-edit-employee-modal [employee]="chosenItem" (close)="closeModal()" (saveEmployee)="saveItem($event)"/>
+</app-generic-table>

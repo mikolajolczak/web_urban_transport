@@ -1,4 +1,4 @@
-export interface OfficeView {
+export interface TableViewModel {
   label: string;
   value: string;
 }

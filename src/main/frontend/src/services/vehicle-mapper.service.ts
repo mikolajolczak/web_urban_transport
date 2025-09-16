@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Vehicle} from '../entities/vehicle';
-import {VehicleView} from '../views/vehicle-view.model';
+import {TableViewModel} from '../views/table-view.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehicleMapperService {
 
-  mapToView(vehicle: Vehicle): VehicleView[] {
+  mapToView(vehicle: Vehicle): TableViewModel[] {
     return [
       {label: 'Brand', value: vehicle.brand || '-'},
       {label: 'Model', value: vehicle.model || '-'},

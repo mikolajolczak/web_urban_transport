@@ -1,5 +1,5 @@
 <div class="title">Vehicle:</div>
-
+@if (office) {
 <div>
   <label>Name</label>
   <input [(ngModel)]="office.officeName" type="text">
@@ -23,3 +23,6 @@
     <fa-icon [icon]="faFloppyDisk"></fa-icon>
   </button>
 </div>
+} @else {
+  <div>Loading...</div>
+}

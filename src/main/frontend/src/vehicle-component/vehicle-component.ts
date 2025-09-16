@@ -1,77 +1,79 @@
-import {Component, OnInit} from '@angular/core';
-import {faCheck, faChevronRight, faPencilAlt, faTrashAlt, faXmark} from '@fortawesome/free-solid-svg-icons';
+import {Component} from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {Vehicle} from '../entities/vehicle';
 import {VehicleMapperService} from '../services/vehicle-mapper.service';
-import {VehicleView} from '../views/vehicle-view.model';
+import {TableViewModel} from '../views/table-view.model';
+import {GenericTable} from '../generic-table/generic-table';
+import {BaseCrudComponent} from '../directives/base-crud.component';
 import {EditVehicleModal} from './edit-vehicle-modal/edit-vehicle-modal';
 
 @Component({
   selector: 'app-vehicle-component',
-  imports: [FontAwesomeModule, EditVehicleModal],
+  standalone: true,
+  imports: [FontAwesomeModule, GenericTable, EditVehicleModal],
   templateUrl: './vehicle-component.html',
   styleUrl: './vehicle-component.scss'
 })
-export class VehicleComponent implements OnInit {
-  faPencilAlt = faPencilAlt
-  faTrashAlt = faTrashAlt
-  faChevronRight = faChevronRight
-  faCheck = faCheck;
-  faXmark = faXmark;
+export class VehicleComponent extends BaseCrudComponent<Vehicle, TableViewModel> {
 
-  showModal = false;
-  confirmDelete: boolean[] = [];
-  chosenVehicle!: Vehicle;
-  vehicles: Vehicle[] = [
-    {
-      vehicleId: 0,
-      brand: "1",
-      productionYear: 2,
-      model: "3",
-      registrationNumber: "3",
-      purchaseDate: new Date(),
-      insuranceDate: new Date(),
-      office: {
+  constructor(mapper: VehicleMapperService) {
+    super(mapper);
+  }
+
+  protected initializeData(): void {
+    this.items = [
+      {
         id: 1,
-        officeName: "1",
-        address: {
+        brand: "Toyota",
+        productionYear: 2020,
+        model: "Corolla",
+        registrationNumber: "ABC123",
+        purchaseDate: new Date('2020-01-15'),
+        insuranceDate: new Date('2024-01-15'),
+        office: {
           id: 1,
-          street: "1",
-          city: "1",
-          buildingNumber: "1",
-          postalCode: "2"
+          officeName: "Main Office",
+          address: {
+            id: 1,
+            street: "Main St",
+            city: "Warsaw",
+            buildingNumber: "123",
+            postalCode: "00-001"
+          }
+        }
+      },
+      {
+        id: 2,
+        brand: "Honda",
+        productionYear: 2019,
+        model: "Civic",
+        registrationNumber: "XYZ789",
+        purchaseDate: new Date('2019-03-20'),
+        insuranceDate: new Date('2024-03-20'),
+        office: {
+          id: 1,
+          officeName: "Branch Office",
+          address: {
+            id: 1,
+            street: "Second St",
+            city: "Krakow",
+            buildingNumber: "456",
+            postalCode: "30-001"
+          }
         }
       }
-    }, {
-      vehicleId: 1,
-      brand: "1",
-      productionYear: 2,
-      model: "3",
-      registrationNumber: "3",
-      purchaseDate: new Date(),
-      insuranceDate: new Date(),
-      office: {
-        id: 1,
-        officeName: "asdasasd",
-        address: {
-          id: 1,
-          street: "1",
-          city: "1",
-          buildingNumber: "1",
-          postalCode: "2"
-        }
-      }
-    }
-  ]
-  labels: VehicleView[];
-  vehiclesView: VehicleView[][] = [];
+    ];
+  }
 
-  constructor(private mapper: VehicleMapperService) {
-    this.confirmDelete = this.vehicles.map(() => false);
-    this.labels = this.mapper.mapToView({
+  protected setupTableColumns(): void {
+    const sample = this.mapper.mapToView({
+      id: 0,
       brand: '',
-      insuranceDate: new Date,
+      productionYear: 0,
       model: '',
+      registrationNumber: '',
+      purchaseDate: new Date(),
+      insuranceDate: new Date(),
       office: {
         id: 0,
         officeName: "",
@@ -82,58 +84,24 @@ export class VehicleComponent implements OnInit {
           buildingNumber: "",
           postalCode: ""
         }
-      },
-      productionYear: 0,
-      purchaseDate: new Date,
-      registrationNumber: '',
-      vehicleId: 0
-    })
+      }
+    });
+
+    this.tableColumns = sample.map(item => ({
+      label: item.label,
+      value: item.label.toLowerCase().replace(/\s+/g, '')
+    }));
   }
 
-  openModal(vehicle: Vehicle) {
-    this.showModal = true;
-    this.chosenVehicle = vehicle;
-  }
-
-  closeModal() {
-    this.showModal = false;
-  }
-
-  askDelete(index: number) {
-    this.confirmDelete[index] = true;
-  }
-
-  cancelDelete(index: number) {
-    this.confirmDelete[index] = false;
-  }
-
-  removeVehicle(index: number) {
-    this.vehicles.splice(index, 1);
-    this.vehiclesView.splice(index, 1);
-    this.confirmDelete.splice(index, 1);
-  }
-
-  saveVehicle(vehicle: Vehicle) {
-    const index = this.vehicles.findIndex(v => v.vehicleId === vehicle.vehicleId);
-    if (index === -1) {
-      this.vehicles.push(vehicle);
-      this.vehiclesView.push(this.mapper.mapToView(vehicle));
-      this.confirmDelete.push(false);
-    } else {
-      this.vehicles[index] = vehicle;
-      this.vehiclesView[index] = this.mapper.mapToView(vehicle);
-    }
-  }
-
-  createVehicle() {
-    const vehicle: Vehicle = {
-      vehicleId: this.vehicles.length + 1,
+  protected createNewItem(): Vehicle {
+    return {
+      id: 0,
       brand: '',
       model: '',
-      productionYear: null,
+      productionYear: new Date().getFullYear(),
       registrationNumber: '',
-      purchaseDate: null,
-      insuranceDate: null,
+      purchaseDate: new Date(),
+      insuranceDate: new Date(),
       office: {
         id: 0,
         officeName: '',
@@ -146,14 +114,18 @@ export class VehicleComponent implements OnInit {
         }
       }
     };
-    this.openModal(vehicle);
   }
 
-  ngOnInit(): void {
-    for (let vehicle of this.vehicles) {
-      this.vehiclesView.push(this.mapper.mapToView(vehicle));
-    }
+  protected flattenItemForTable(vehicle: Vehicle): any {
+    const mapped = this.mapper.mapToView(vehicle);
+    const flattened: any = {};
 
+    mapped.forEach(item => {
+      const key = item.label.toLowerCase().replace(/\s+/g, '');
+      flattened[key] = item.value;
+    });
+
+    return flattened;
   }
 
 }

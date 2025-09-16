@@ -1,54 +1,17 @@
-<div class="title">
-  <span>Offices:</span>
+<app-generic-table
+  title="Offices"
+  createButtonText="New office"
+  [items]="itemsView"
+  [columns]="tableColumns"
+  [showModal]="showModal"
+  tableWidth="60vw"
+  (create)="createItem()"
+  (edit)="openModal($event)"
+  (delete)="removeItem($event)"
+  (closeModal)="closeModal()">
 
-  <a (click)="createOffice()">
-    <fa-icon [icon]="faChevronRight"></fa-icon>
-    New office</a>
-</div>
-
-<table>
-  <thead>
-  <tr>
-    @for (label of labels; track label) {
-      <th>{{ label.label }}</th>
-    }
-    <th class="action"></th>
-    <th class="action"></th>
-  </tr>
-  </thead>
-  <tbody>
-    @for (office of offices; let i = $index; track office) {
-      <tr>
-        @for (item of officesView[i]; track item) {
-          <td>{{ item.value }}</td>
-        }
-        <td class="action"><a (click)="openModal(office)">
-          <fa-icon [icon]="faPencilAlt"></fa-icon>
-        </a></td>
-        <td (mouseleave)="cancelDelete(i)" class="action">
-          @if (!confirmDelete[i]) {
-            <a class="delete" (click)="askDelete(i)">
-
-              <fa-icon [icon]="faTrashAlt"></fa-icon>
-            </a>
-          } @else {
-            <a (click)="cancelDelete(i)" class="delete">
-              <fa-icon [icon]="faXmark"></fa-icon>
-            </a>
-            <a (click)="removeOffice(i)">
-              <fa-icon [icon]="faCheck"></fa-icon>
-            </a>
-          }
-
-        </td>
-      </tr>
-    }
-  </tbody>
-  @if (showModal) {
-    <div class="overlay" (click)="closeModal()">
-      <div class="modal" (click)="$event.stopPropagation()">
-        <app-edit-office-modal [office]="chosenOffice" (close)="closeModal()" (saveOffice)="saveOffice($event)"/>
-      </div>
-    </div>
-  }
-</table>
+  <app-edit-office-modal
+    [office]="chosenItem"
+    (close)="closeModal()"
+    (saveOffice)="saveItem($event)"/>
+</app-generic-table>

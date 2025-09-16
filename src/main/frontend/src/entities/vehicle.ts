@@ -1,9 +1,9 @@
 import {Office} from './office';
 
 export interface Vehicle {
-  vehicleId: number;
+  id: number;
   brand: string;
-  productionYear: number | null;
+  productionYear?: number;
   model: string;
   registrationNumber: string;
   purchaseDate: Date | null;

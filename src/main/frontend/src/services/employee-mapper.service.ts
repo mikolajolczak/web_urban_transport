@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Employee} from '../entities/employee';
-import {EmployeeView} from '../views/employee-view.model';
+import {TableViewModel} from '../views/table-view.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeMapperService {
 
-  mapToView(employee: Employee): EmployeeView[] {
+  mapToView(employee: Employee): TableViewModel[] {
     return [
       {label: 'First Name', value: employee.firstName || '-'},
       {label: 'Last Name', value: employee.lastName || '-'},
@@ -21,8 +21,8 @@ export class EmployeeMapperService {
       {label: 'Position', value: employee.position?.positionName || '-'},
       {label: 'Salary', value: employee.salary?.amount?.toString() || '-'},
       {label: 'Account Number', value: employee.accountNumber || '-'},
-      {label: 'Personal Identification Number', value: employee.personalIdentificationNumber || '-'},
-      {label: 'Employment Date', value: employee.employmentDate || '-'}
+      {label: 'Id Number', value: employee.personalIdentificationNumber || '-'},
+      {label: 'Employ Date', value: employee.employmentDate || '-'}
     ];
   }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {OfficeView} from '../views/office-view.model';
+import {TableViewModel} from '../views/table-view.model';
 import {Office} from '../entities/office';
 import {Address} from '../entities/address';
 
@@ -8,7 +8,7 @@ import {Address} from '../entities/address';
 })
 export class OfficeMapperService {
 
-  mapToView(office: Office): OfficeView[] {
+  mapToView(office: Office): TableViewModel[] {
     return [
       {label: "Name", value: office.officeName},
       {label: "Address", value: office.address ? this.formatAddress(office.address) : '-'},

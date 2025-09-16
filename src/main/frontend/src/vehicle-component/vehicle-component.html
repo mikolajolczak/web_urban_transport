@@ -1,57 +1,17 @@
-<div class="title">
-  <span>Vehicles:</span>
-  <a (click)="createVehicle()">
-    <fa-icon [icon]="faChevronRight"></fa-icon>
-    New Vehicle</a>
-</div>
-<table>
-  <thead>
-  <tr>
-    @for (item of labels; track item) {
-      <th>{{ item.label }}</th>
-    }
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-    @for (vehicle of vehicles; let i = $index; track vehicle) {
-      <tr>
-        @for (item of vehiclesView[i]; track item) {
-          <td>{{ item.value }}</td>
-        }
-        <td class="action">
-          <a (click)="openModal(vehicle)">
-            <fa-icon [icon]="faPencilAlt"></fa-icon>
-          </a>
-        </td>
-        <td (mouseleave)="cancelDelete(i)" class="action">
-          @if (!confirmDelete[i]) {
-            <a class="delete" (click)="askDelete(i)">
+<app-generic-table
+  title="Vehicles"
+  createButtonText="New vehicle"
+  [items]="itemsView"
+  [columns]="tableColumns"
+  [showModal]="showModal"
+  tableWidth="80vw"
+  (create)="createItem()"
+  (edit)="openModal($event)"
+  (delete)="removeItem($event)"
+  (closeModal)="closeModal()">
 
-              <fa-icon [icon]="faTrashAlt"></fa-icon>
-            </a>
-          } @else {
-            <a (click)="cancelDelete(i)" class="delete">
-              <fa-icon [icon]="faXmark"></fa-icon>
-            </a>
-            <a (click)="removeVehicle(i)">
-              <fa-icon [icon]="faCheck"></fa-icon>
-            </a>
-          }
-
-        </td>
-      </tr>
-    }
-  </tbody>
-
-  @if (showModal) {
-    <div class="overlay" (click)="closeModal()">
-      <div class="modal" (click)="$event.stopPropagation()">
-        <app-edit-vehicle-modal (close)="closeModal()" [vehicle]="chosenVehicle" (saveVehicle)="saveVehicle($event)"/>
-      </div>
-    </div>
-  }
-
-
-</table>
+  <app-edit-vehicle-modal
+    [vehicle]="chosenItem"
+    (close)="closeModal()"
+    (saveVehicle)="saveItem($event)"/>
+</app-generic-table>
