@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class Office {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int officeId;
+  private int id;
   @Column(nullable = false)
   private String officeName;
   @OneToOne
@@ -23,12 +23,12 @@ public class Office {
       foreignKey = @ForeignKey(name = "FK_OFFICE_ADDRESS"))
   private Address address;
 
-  public int getOfficeId() {
-    return officeId;
+  public int getId() {
+    return id;
   }
 
-  public void setOfficeId(int officeIdParam) {
-    officeId = officeIdParam;
+  public void setId(int officeIdParam) {
+    id = officeIdParam;
   }
 
   public String getOfficeName() {

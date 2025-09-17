@@ -17,7 +17,7 @@ import java.sql.Date;
 public class Employee {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int employeeId;
+  private int id;
   @Column(nullable = false)
   private String firstName;
   @Column(nullable = false)
@@ -47,12 +47,12 @@ public class Employee {
       foreignKey = @ForeignKey(name = "FK_EMPLOYEE_ADDRESS"))
   private Address address;
 
-  public int getEmployeeId() {
-    return employeeId;
+  public int getId() {
+    return id;
   }
 
-  public void setEmployeeId(int employeeIdParam) {
-    employeeId = employeeIdParam;
+  public void setId(int employeeIdParam) {
+    id = employeeIdParam;
   }
 
   public String getFirstName() {

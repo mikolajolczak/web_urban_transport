@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -13,8 +15,8 @@ import java.sql.Date;
 @Table(name = "MOTORMEN")
 public class Motorman {
   @Id
-  @Column(name = "EMPLOYEE_ID")
-  private int motormanId;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
   @ManyToOne
   @MapsId
   @JoinColumn(name = "EMPLOYEE_ID")

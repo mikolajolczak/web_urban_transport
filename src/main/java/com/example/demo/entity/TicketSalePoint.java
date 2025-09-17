@@ -17,7 +17,7 @@ import java.sql.Date;
 public class TicketSalePoint {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int ticketSalePointId;
+  private int id;
   @ManyToOne
   @JoinColumn(name = "POINT_OF_SALE_ID", nullable = false,
       foreignKey = @ForeignKey(name = "FK_TICKET_SALE_POINT_POINT_OF_SALE"))

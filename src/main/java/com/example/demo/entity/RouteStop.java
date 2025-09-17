@@ -14,7 +14,7 @@ import java.sql.Date;
 public class RouteStop {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int routeStopId;
+  private int id;
   @ManyToOne
   @JoinColumn(name = "ROUTE_ID", nullable = false,
       foreignKey = @ForeignKey(name = "FK_ROUTE_STOP_ROUTE"))

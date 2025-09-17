@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 public class Route {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int routeId;
+  private int id;
   @Column(nullable = false)
   private String routeName;
 

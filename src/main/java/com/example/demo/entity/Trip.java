@@ -17,7 +17,7 @@ import java.sql.Date;
 public class Trip {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int tripId;
+  private int id;
   @Column(nullable = false)
   private Date startDate;
   @Column(nullable = false)

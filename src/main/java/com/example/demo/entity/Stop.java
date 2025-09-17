@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class Stop {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int stopId;
+  private int id;
   @Column(nullable = false)
   private String stopName;
   @ManyToOne
@@ -24,12 +24,12 @@ public class Stop {
       foreignKey = @ForeignKey(name = "FK_STOP_ADDRESS"))
   private Address address;
 
-  public int getStopId() {
-    return stopId;
+  public int getId() {
+    return id;
   }
 
-  public void setStopId(int stopIdParam) {
-    stopId = stopIdParam;
+  public void setId(int stopIdParam) {
+    id = stopIdParam;
   }
 
   public String getStopName() {

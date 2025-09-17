@@ -17,7 +17,7 @@ import java.sql.Date;
 public class Vehicle {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private int vehicleId;
+  private int id;
   @Column(nullable = false)
   private String brand;
   @Column(nullable = false)
@@ -35,12 +35,12 @@ public class Vehicle {
       foreignKey = @ForeignKey(name = "FK_VEHICLE_OFFICE"))
   private Office office;
 
-  public int getVehicleId() {
-    return vehicleId;
+  public int getId() {
+    return id;
   }
 
-  public void setVehicleId(int vehicleIdParam) {
-    vehicleId = vehicleIdParam;
+  public void setId(int vehicleIdParam) {
+    id = vehicleIdParam;
   }
 
   public String getBrand() {

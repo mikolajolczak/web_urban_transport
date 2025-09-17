@@ -14,7 +14,7 @@ import java.sql.Date;
 public class Ticket {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int ticketId;
+  private int id;
   @Column(nullable = false)
   private Date duration;
   @Column(nullable = false)

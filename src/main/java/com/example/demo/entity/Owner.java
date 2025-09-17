@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class Owner {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int ownerId;
+  private int id;
   @Column(nullable = false)
   private String name;
   @Column(nullable = false)

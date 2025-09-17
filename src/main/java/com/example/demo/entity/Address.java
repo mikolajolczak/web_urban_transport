@@ -15,7 +15,7 @@ import jakarta.persistence.UniqueConstraint;
 public class Address {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int addressId;
+  private int id;
   @Column(nullable = false)
   private String street;
   @Column(nullable = false)
@@ -27,12 +27,12 @@ public class Address {
   @Column(nullable = false)
   private String postalCode;
 
-  public int getAddressId() {
-    return addressId;
+  public int getId() {
+    return id;
   }
 
-  public void setAddressId(int addressIdParam) {
-    addressId = addressIdParam;
+  public void setId(int idParam) {
+    id = idParam;
   }
 
   public String getStreet() {

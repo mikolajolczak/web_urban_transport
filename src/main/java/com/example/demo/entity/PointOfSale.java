@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class PointOfSale {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int pointOfSaleId;
+  private int id;
   @ManyToOne
   @JoinColumn(name = "ADDRESS_ID", nullable = false,
       foreignKey = @ForeignKey(name = "FK_POINT_OF_SALE_ADDRESS"))

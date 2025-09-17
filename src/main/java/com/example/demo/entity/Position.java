@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 public class Position {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int positionId;
+  private int id;
   @Column(nullable = false)
   private String positionName;
 }
