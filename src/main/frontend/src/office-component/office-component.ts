@@ -5,6 +5,7 @@ import {TableViewModel} from '../views/table-view.model';
 import {EditOfficeModal} from './edit-office-modal/edit-office-modal';
 import {GenericTable} from '../generic-table/generic-table';
 import {BaseCrudComponent} from '../directives/base-crud.component';
+import {OfficeService} from '../services/office.service';
 
 @Component({
   selector: 'app-office-component',
@@ -13,37 +14,10 @@ import {BaseCrudComponent} from '../directives/base-crud.component';
   templateUrl: './office-component.html',
   styleUrls: ['./office-component.scss'],
 })
-export class OfficeComponent extends BaseCrudComponent<Office, TableViewModel> {
+export class OfficeComponent extends BaseCrudComponent<Office, TableViewModel, OfficeService> {
 
-  constructor(mapper: OfficeMapperService) {
-    super(mapper);
-  }
-
-  protected initializeData(): void {
-    this.items = [
-      {
-        id: 1,
-        officeName: "123",
-        address: {
-          id: 0,
-          street: "123",
-          city: "132",
-          buildingNumber: "123",
-          postalCode: "123"
-        }
-      },
-      {
-        id: 2,
-        officeName: "asd",
-        address: {
-          id: 2,
-          street: "asd",
-          city: "ads",
-          buildingNumber: "asd",
-          postalCode: "asd"
-        }
-      }
-    ];
+  constructor(mapper: OfficeMapperService, officeService: OfficeService) {
+    super(mapper, officeService);
   }
 
   protected setupTableColumns(): void {

@@ -14,7 +14,9 @@ import {Office} from '../../entities/office';
 })
 export class EditOfficeModal {
   @Input() office!: Office;
+  @Input() update!: boolean;
   @Output() close = new EventEmitter<void>();
+  @Output() updateOffice = new EventEmitter<Office>();
   @Output() saveOffice = new EventEmitter<Office>();
 
 

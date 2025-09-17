@@ -6,6 +6,7 @@ import {TableViewModel} from '../views/table-view.model';
 import {GenericTable} from '../generic-table/generic-table';
 import {BaseCrudComponent} from '../directives/base-crud.component';
 import {EditVehicleModal} from './edit-vehicle-modal/edit-vehicle-modal';
+import {VehicleService} from '../services/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-component',
@@ -14,55 +15,10 @@ import {EditVehicleModal} from './edit-vehicle-modal/edit-vehicle-modal';
   templateUrl: './vehicle-component.html',
   styleUrl: './vehicle-component.scss'
 })
-export class VehicleComponent extends BaseCrudComponent<Vehicle, TableViewModel> {
+export class VehicleComponent extends BaseCrudComponent<Vehicle, TableViewModel, VehicleService> {
 
-  constructor(mapper: VehicleMapperService) {
-    super(mapper);
-  }
-
-  protected initializeData(): void {
-    this.items = [
-      {
-        id: 1,
-        brand: "Toyota",
-        productionYear: 2020,
-        model: "Corolla",
-        registrationNumber: "ABC123",
-        purchaseDate: new Date('2020-01-15'),
-        insuranceDate: new Date('2024-01-15'),
-        office: {
-          id: 1,
-          officeName: "Main Office",
-          address: {
-            id: 1,
-            street: "Main St",
-            city: "Warsaw",
-            buildingNumber: "123",
-            postalCode: "00-001"
-          }
-        }
-      },
-      {
-        id: 2,
-        brand: "Honda",
-        productionYear: 2019,
-        model: "Civic",
-        registrationNumber: "XYZ789",
-        purchaseDate: new Date('2019-03-20'),
-        insuranceDate: new Date('2024-03-20'),
-        office: {
-          id: 1,
-          officeName: "Branch Office",
-          address: {
-            id: 1,
-            street: "Second St",
-            city: "Krakow",
-            buildingNumber: "456",
-            postalCode: "30-001"
-          }
-        }
-      }
-    ];
+  constructor(mapper: VehicleMapperService, vehicleService: VehicleService) {
+    super(mapper,vehicleService);
   }
 
   protected setupTableColumns(): void {

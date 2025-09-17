@@ -5,6 +5,7 @@ import {TableViewModel} from '../views/table-view.model';
 import {StopMapperService} from '../services/stop-mapper.service';
 import {GenericTable} from '../generic-table/generic-table';
 import {EditStopModal} from './edit-stop-modal/edit-stop-modal';
+import {StopService} from '../services/stop.service';
 
 @Component({
   selector: 'app-stop-component',
@@ -15,25 +16,9 @@ import {EditStopModal} from './edit-stop-modal/edit-stop-modal';
   templateUrl: './stop-component.html',
   styleUrl: './stop-component.scss'
 })
-export class StopComponent extends BaseCrudComponent<Stop, TableViewModel> {
-  constructor(mapper: StopMapperService) {
-    super(mapper);
-  }
-
-  protected override initializeData(): void {
-    this.items = [{
-      id: 1,
-      stopName: "123"
-    }, {
-      id: 2,
-      stopName: "asd", address: {
-        id: 1,
-        street: "asd",
-        city: "asd",
-        buildingNumber: "asd",
-        postalCode: "ads"
-      }
-    }]
+export class StopComponent extends BaseCrudComponent<Stop, TableViewModel, StopService> {
+  constructor(mapper: StopMapperService, stopService: StopService) {
+    super(mapper,stopService);
   }
 
   protected override setupTableColumns(): void {

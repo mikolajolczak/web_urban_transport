@@ -1,7 +1,8 @@
-import { Directive, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Directive, inject, OnInit} from '@angular/core';
+import {GenericCrudService} from '../services/generic-crud.service';
 
 export interface CrudItem {
-  id: number | string;
+  id: number;
 }
 
 export interface CrudMapper<T, V> {
@@ -9,24 +10,36 @@ export interface CrudMapper<T, V> {
 }
 
 @Directive()
-export abstract class BaseCrudComponent<T extends CrudItem, V> implements OnInit {
+export abstract class BaseCrudComponent<T extends CrudItem, V, S extends GenericCrudService<T>> implements OnInit {
   items: T[] = [];
   itemsView: any[] = [];
   tableColumns: any[] = [];
   showModal = false;
   chosenItem!: T;
+  cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
-  protected constructor(protected mapper: CrudMapper<T, V>) {}
+  protected constructor(protected mapper: CrudMapper<T, V>, protected service: S) {
+  }
 
   ngOnInit() {
     this.initializeData();
     this.setupTableColumns();
-    this.updateView();
   }
 
-  protected abstract initializeData(): void;
+  protected initializeData(): void {
+    this.service.getAll().subscribe({
+      next: data => {
+        this.items = data;
+        this.updateView();
+        this.cdr.detectChanges();
+      }
+    })
+  };
+
   protected abstract setupTableColumns(): void;
+
   protected abstract createNewItem(): T;
+
   protected abstract flattenItemForTable(item: T): any;
 
   protected updateView() {
@@ -51,9 +64,19 @@ export abstract class BaseCrudComponent<T extends CrudItem, V> implements OnInit
     this.showModal = true;
   }
 
-  removeItem(index: number) {
-    this.items.splice(index, 1);
-    this.updateView();
+  removeItem(index: number): void {
+    const item = this.items[index];
+    if (!item) return;
+    this.service.delete(item.id).subscribe({
+      next: () => {
+        this.items.splice(index, 1);
+        this.updateView();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 
   saveItem(item: T) {

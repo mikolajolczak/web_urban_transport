@@ -5,6 +5,7 @@ import {EditEmployeeModal} from './edit-employee-modal/edit-employee-modal';
 import {BaseCrudComponent} from '../directives/base-crud.component';
 import {EmployeeMapperService} from '../services/employee-mapper.service';
 import {GenericTable} from '../generic-table/generic-table';
+import {EmployeeService} from '../services/employee.service';
 
 @Component({
   selector: 'app-employee-component',
@@ -15,68 +16,11 @@ import {GenericTable} from '../generic-table/generic-table';
   templateUrl: './employee-component.html',
   styleUrl: './employee-component.scss'
 })
-export class EmployeeComponent extends BaseCrudComponent<Employee, TableViewModel> {
+export class EmployeeComponent extends BaseCrudComponent<Employee, TableViewModel, EmployeeService> {
 
-  constructor(mapper: EmployeeMapperService) {
-    super(mapper);
+  constructor(mapper: EmployeeMapperService, employeeService: EmployeeService) {
+    super(mapper,employeeService);
   }
-
-  protected initializeData(): void {
-    this.items = [
-      {
-        id: 1,
-        firstName: "",
-        lastName: "",
-        gender: "",
-        employmentDate: "",
-        office: {
-          id: 0,
-          officeName: ""
-        },
-        position: {
-          id: 0,
-          positionName: ""
-        },
-        salary: {
-          id: 0,
-          amount: 0
-        },
-        address: {
-          id: 0,
-          street: "",
-          city: "",
-          buildingNumber: "",
-          postalCode: ""
-        }
-      },      {
-        id: 2,
-        firstName: "",
-        lastName: "",
-        gender: "",
-        employmentDate: "",
-        office: {
-          id: 0,
-          officeName: ""
-        },
-        position: {
-          id: 0,
-          positionName: ""
-        },
-        salary: {
-          id: 0,
-          amount: 0
-        },
-        address: {
-          id: 0,
-          street: "",
-          city: "",
-          buildingNumber: "",
-          postalCode: ""
-        }
-      }
-    ];
-  }
-
   protected setupTableColumns(): void {
     const sample = this.mapper.mapToView({
       accountNumber: '',
