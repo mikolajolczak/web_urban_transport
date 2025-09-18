@@ -9,5 +9,6 @@
   (edit)="openModal($event)"
   (delete)="removeItem($event)"
   (closeModal)="closeModal()">
-  <app-edit-stop-modal [stop]="chosenItem" (close)="closeModal()" (saveOffice)="saveItem($event)"/>
+  <app-edit-stop-modal [stop]="chosenItem" [isEditMode]="isEditMode" (close)="closeModal()"
+                       (createStop)="saveItem($event)" (updateStop)="updateItem($event)"/>
 </app-generic-table>

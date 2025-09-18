@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Address;
 import com.example.demo.entity.Stop;
+import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.StopRepository;
 import java.util.List;
 import java.util.Optional;
@@ -8,21 +10,30 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StopService {
-  private final StopRepository stopRepository;
 
-  public StopService(StopRepository stopRepository) {
+  private final StopRepository stopRepository;
+  private final AddressRepository addressRepository;
+
+  public StopService(StopRepository stopRepository, AddressRepository addressRepository) {
     this.stopRepository = stopRepository;
+    this.addressRepository = addressRepository;
   }
 
   public List<Stop> findAll() {
     return stopRepository.findAll();
   }
 
+  public Optional<Stop> findById(Integer id) {
+    return stopRepository.findById(id);
+  }
+
   public Stop save(Stop stop) {
+    Address existingAddress = findOrCreateAddress(stop.getAddress());
+    stop.setAddress(existingAddress);
     return stopRepository.save(stop);
   }
 
-  public boolean deleteById(int id) {
+  public boolean deleteById(Integer id) {
     if (stopRepository.existsById(id)) {
       stopRepository.deleteById(id);
       return true;
@@ -30,15 +41,39 @@ public class StopService {
     return false;
   }
 
-  public Optional<Stop> findById(int id) {
-    return stopRepository.findById(id);
+  public Optional<Stop> update(Integer id, Stop updatedStop) {
+    return stopRepository.findById(id).map(existing -> {
+      existing.setStopName(updatedStop.getStopName());
+
+      Address oldAddress = updatedStop.getAddress();
+      Address newAddress = new Address();
+      newAddress.setStreet(oldAddress.getStreet());
+      newAddress.setCity(oldAddress.getCity());
+      newAddress.setBuildingNumber(oldAddress.getBuildingNumber());
+      newAddress.setApartmentNumber(oldAddress.getApartmentNumber());
+      newAddress.setPostalCode(oldAddress.getPostalCode());
+
+      Address savedAddress = addressRepository.save(newAddress);
+      existing.setAddress(savedAddress);
+
+      return stopRepository.save(existing);
+    });
   }
 
-  public Optional<Stop> update(int id, Stop updatedStop) {
-    return stopRepository.findById(id).map((existing) -> {
-      existing.setAddress(updatedStop.getAddress());
-      existing.setStopName(updatedStop.getStopName());
-      return existing;
-    });
+  private Address findOrCreateAddress(Address address) {
+    if (address == null) {
+      return null;
+    }
+
+    Optional<Address> existingAddress = addressRepository
+        .findByStreetAndCityAndPostalCodeAndBuildingNumberAndApartmentNumber(
+            address.getStreet(),
+            address.getCity(),
+            address.getPostalCode(),
+            address.getBuildingNumber(),
+            address.getApartmentNumber()
+        );
+
+    return existingAddress.orElseGet(() -> addressRepository.save(address));
   }
 }

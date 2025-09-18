@@ -11,7 +11,7 @@ import {StopService} from '../services/stop.service';
   selector: 'app-stop-component',
   imports: [
     GenericTable,
-    EditStopModal
+    EditStopModal,
   ],
   templateUrl: './stop-component.html',
   styleUrl: './stop-component.scss'

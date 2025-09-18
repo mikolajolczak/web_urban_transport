@@ -14,8 +14,10 @@ import {Stop} from '../../entities/Stop';
 })
 export class EditStopModal {
   @Input() stop!: Stop;
+  @Input() isEditMode!: boolean;
   @Output() close = new EventEmitter<void>();
-  @Output() saveOffice = new EventEmitter<Stop>();
+  @Output() createStop = new EventEmitter<Stop>();
+  @Output() updateStop = new EventEmitter<Stop>();
 
 
   faChevronRight = faChevronRight;
@@ -77,9 +79,18 @@ export class EditStopModal {
   }
 
   save() {
-    this.saveOffice.emit(this.stop);
+    if (this.isEditMode) {
+      this.updateStop.emit(this.stop);
+    } else {
+      this.createStop.emit(this.stop);
+    }
     this.close.emit();
   }
+  get modalTitle(): string {
+    return this.isEditMode ? 'Edit Stop' : 'Create New Stop';
+  }
 
-
+  get saveButtonText(): string {
+    return this.isEditMode ? 'Update' : 'Create';
+  }
 }
