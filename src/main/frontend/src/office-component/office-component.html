@@ -12,7 +12,9 @@
 
   <app-edit-office-modal
     [office]="chosenItem"
+    [isEditMode]="isEditMode"
     (close)="closeModal()"
-    (saveOffice)="saveItem($event)"
+    (createOffice)="saveItem($event)"
+    (updateOffice)="updateItem($event)"
   />
 </app-generic-table>

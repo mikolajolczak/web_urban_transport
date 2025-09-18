@@ -1,28 +1,28 @@
-<div class="title">Office:</div>
+<div class="title">{{ modalTitle }}</div>
 @if (office) {
-<div>
-  <label>Name</label>
-  <input [(ngModel)]="office.officeName" type="text">
-  <label>City</label>
-  <input [(ngModel)]="city" type="text">
-  <label>Street</label>
-  <input [(ngModel)]="street" type="text">
-  <label>Building Number</label>
-  <input [(ngModel)]="buildingNumber" type="text">
-  <label>Apartment Number</label>
-  <input [(ngModel)]="apartmentNumber" type="text">
-  <label>Postal Code</label>
-  <input [(ngModel)]="postalCode" type="text">
+  <div>
+    <label>Name</label>
+    <input [(ngModel)]="office.officeName" type="text">
+    <label>City</label>
+    <input [(ngModel)]="city" type="text">
+    <label>Street</label>
+    <input [(ngModel)]="street" type="text">
+    <label>Building Number</label>
+    <input [(ngModel)]="buildingNumber" type="text">
+    <label>Apartment Number</label>
+    <input [(ngModel)]="apartmentNumber" type="text">
+    <label>Postal Code</label>
+    <input [(ngModel)]="postalCode" type="text">
 
-  <button (click)="close.emit()">
-    <fa-icon [icon]="faChevronRight"></fa-icon>
-    Cancel
-  </button>
-  <button (click)="save()">
-    Save
-    <fa-icon [icon]="faFloppyDisk"></fa-icon>
-  </button>
-</div>
+    <button (click)="close.emit()">
+      <fa-icon [icon]="faChevronRight"></fa-icon>
+      Cancel
+    </button>
+    <button (click)="save()">
+      {{ saveButtonText }}
+      <fa-icon [icon]="faFloppyDisk"></fa-icon>
+    </button>
+  </div>
 } @else {
   <div>Loading...</div>
 }

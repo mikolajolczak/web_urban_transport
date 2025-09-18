@@ -16,6 +16,7 @@ export abstract class BaseCrudComponent<T extends CrudItem, V, S extends Generic
   tableColumns: any[] = [];
   showModal = false;
   chosenItem!: T;
+  isEditMode = false;
   cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   protected constructor(protected mapper: CrudMapper<T, V>, protected service: S) {
@@ -51,16 +52,19 @@ export abstract class BaseCrudComponent<T extends CrudItem, V, S extends Generic
   }
 
   openModal(itemView: any): void {
-    this.chosenItem = itemView.originalData;
+    this.chosenItem = { ...itemView.originalData };
+    this.isEditMode = true;
     this.showModal = true;
   }
 
   closeModal(): void {
     this.showModal = false;
+    this.isEditMode = false;
   }
 
   createItem() {
     this.chosenItem = this.createNewItem();
+    this.isEditMode = false;
     this.showModal = true;
   }
 
@@ -74,23 +78,39 @@ export abstract class BaseCrudComponent<T extends CrudItem, V, S extends Generic
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error(err);
+        console.error( err);
       }
     });
   }
 
   saveItem(item: T) {
-    const index = this.items.findIndex(i => i.id === item.id);
+    this.service.create(item).subscribe({
+      next: (createdItem) => {
+        this.items.push(createdItem);
+        this.updateView();
+        this.closeModal();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error( err);
+      }
+    });
+  }
 
-    if (index === -1) {
-      const maxId = this.items.length > 0 ? Math.max(...this.items.map(i => Number(i.id))) : 0;
-      item.id = maxId + 1;
-      this.items.push(item);
-    } else {
-      this.items[index] = item;
-    }
-
-    this.updateView();
-    this.closeModal();
+  updateItem(item: T) {
+    this.service.update(item.id, item).subscribe({
+      next: (updatedItem) => {
+        const index = this.items.findIndex(i => i.id === item.id);
+        if (index !== -1) {
+          this.items[index] = updatedItem;
+          this.updateView();
+        }
+        this.closeModal();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 }

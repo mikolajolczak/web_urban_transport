@@ -14,11 +14,10 @@ import {Office} from '../../entities/office';
 })
 export class EditOfficeModal {
   @Input() office!: Office;
-  @Input() update!: boolean;
+  @Input() isEditMode!: boolean;
   @Output() close = new EventEmitter<void>();
+  @Output() createOffice = new EventEmitter<Office>();
   @Output() updateOffice = new EventEmitter<Office>();
-  @Output() saveOffice = new EventEmitter<Office>();
-
 
   faChevronRight = faChevronRight;
   faFloppyDisk = faFloppyDisk;
@@ -79,9 +78,19 @@ export class EditOfficeModal {
   }
 
   save() {
-    this.saveOffice.emit(this.office);
+    if (this.isEditMode) {
+      this.updateOffice.emit(this.office);
+    } else {
+      this.createOffice.emit(this.office);
+    }
     this.close.emit();
   }
 
+  get modalTitle(): string {
+    return this.isEditMode ? 'Edit Office' : 'Create New Office';
+  }
 
+  get saveButtonText(): string {
+    return this.isEditMode ? 'Update' : 'Create';
+  }
 }
