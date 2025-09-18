@@ -6,8 +6,8 @@ export interface Vehicle {
   productionYear?: number;
   model: string;
   registrationNumber: string;
-  purchaseDate: Date | null;
-  insuranceDate: Date | null;
+  purchaseDate: string;
+  insuranceDate: string;
   office: Office;
 
 }

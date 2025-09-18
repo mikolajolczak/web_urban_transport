@@ -1,43 +1,42 @@
-<div class="title">Vehicle:</div>
+<div class="title">{{ modalTitle }}</div>
 @if (vehicle) {
-<div>
-  <label>Brand</label>
-  <input [(ngModel)]="vehicle.brand" type="text">
+  <div>
+    <label>Brand</label>
+    <input [(ngModel)]="vehicle.brand" type="text">
 
-  <label>Model</label>
-  <input [(ngModel)]="vehicle.model" type="text">
+    <label>Model</label>
+    <input [(ngModel)]="vehicle.model" type="text">
 
-  <label>Production Year</label>
-  <input [(ngModel)]="vehicle.productionYear" type="text">
+    <label>Production Year</label>
+    <input [(ngModel)]="vehicle.productionYear" type="text">
 
-  <label>Registration Number</label>
-  <input [(ngModel)]="vehicle.registrationNumber" type="text">
+    <label>Registration Number</label>
+    <input [(ngModel)]="vehicle.registrationNumber" type="text">
 
-  <label>Purchase Date</label>
-  <input [(ngModel)]="purchaseDateString" type="date">
+    <label>Purchase Date</label>
+    <input [(ngModel)]="vehicle.purchaseDate" type="date">
 
-  <label>Insurance Date</label>
-  <input [(ngModel)]="insuranceDateString" type="date">
+    <label>Insurance Date</label>
+    <input [(ngModel)]="vehicle.insuranceDate" type="date">
 
-  <label>Office</label>
-  <select [(ngModel)]="vehicle.office.id">
-    @for (office of offices; track office.id) {
-      <option [value]="office.id">
-        {{ office.officeName }}
-      </option>
-    }
+    <label>Office</label>
+    <select [(ngModel)]="vehicle.office.id">
+      @for (office of offices; track office.id) {
+        <option [value]="office.id">
+          {{ office.officeName }}
+        </option>
+      }
 
-  </select>
+    </select>
 
-  <button (click)="close.emit()">
-    <fa-icon [icon]="faChevronRight"></fa-icon>
-    Cancel
-  </button>
-  <button (click)="save()">
-    Save
-    <fa-icon [icon]="faFloppyDisk"></fa-icon>
-  </button>
-</div>
+    <button (click)="close.emit()">
+      <fa-icon [icon]="faChevronRight"></fa-icon>
+      Cancel
+    </button>
+    <button (click)="save()">{{ saveButtonText }}
+      <fa-icon [icon]="faFloppyDisk"></fa-icon>
+    </button>
+  </div>
 } @else {
   <div>Loading...</div>
 }

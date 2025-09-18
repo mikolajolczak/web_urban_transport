@@ -13,17 +13,10 @@ export class VehicleMapperService {
       {label: 'Model', value: vehicle.model || '-'},
       {label: 'Production Year', value: vehicle.productionYear?.toString() || '-'},
       {label: 'Registration Number', value: vehicle.registrationNumber || '-'},
-      {label: 'Purchase Date', value: this.formatDate(vehicle.purchaseDate)},
-      {label: 'Insurance Date', value: this.formatDate(vehicle.insuranceDate)},
+      {label: 'Purchase Date', value: vehicle.purchaseDate},
+      {label: 'Insurance Date', value: vehicle.insuranceDate},
       {label: 'Office', value: vehicle.office?.officeName || '-'},
     ];
   }
 
-  private formatDate(date: Date | null | undefined): string {
-    if (!date) return '-';
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}.${month}.${year}`;
-  }
 }

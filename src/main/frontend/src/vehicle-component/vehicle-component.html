@@ -12,6 +12,8 @@
 
   <app-edit-vehicle-modal
     [vehicle]="chosenItem"
+    [isEditMode]="isEditMode"
     (close)="closeModal()"
-    (saveVehicle)="saveItem($event)"/>
+    (createVehicle)="saveItem($event)"
+    (updateVehicle)="updateItem($event)"/>
 </app-generic-table>
