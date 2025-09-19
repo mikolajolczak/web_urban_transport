@@ -1,34 +1,51 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {catchError, map} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {environment} from '../environments/environment';
 
 export type UserRole = 'ADMIN' | 'USER';
 
 export interface User {
   username: string;
+  employee_id?: number | null;
   role: UserRole;
   token?: string;
 }
 
+export interface LoginResponse {
+  role: UserRole;
+  employeeId: number | null;
+  token:string;
+  username: string;
+}
+
 @Injectable({providedIn: 'root'})
 export class AuthService {
+  protected apiUrl = environment.apiUrl;
   private currentUser?: User;
 
-  constructor(private router: Router) {
+
+  constructor(private router: Router, private http: HttpClient) {
   }
 
-  login(username: string, password: string): boolean {
-    if (username === 'admin' && password === 'admin') {
-      this.currentUser = {username, role: 'ADMIN', token: 'fake-jwt-admin'};
-    } else if (username === 'user' && password === 'user') {
-      this.currentUser = {username, role: 'USER', token: 'fake-jwt-user'};
-    } else {
-      return false;
-    }
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.setItem('user', JSON.stringify(this.currentUser));
-      return true;
-    }
-    return false;
+  login(username: string, password: string): Observable<boolean> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, {username, password}).pipe(
+      map(response => {
+        const user: User = {
+          employee_id: response.employeeId, role: response.role, username: username, token: response.token
+        }
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.setItem('user', JSON.stringify(user));
+        }
+        return true;
+      }),
+      catchError(err => {
+        console.error(err);
+        return of(false);
+      })
+    );
   }
 
   logout() {

@@ -20,9 +20,12 @@ export class LoginComponent {
 
   }
   tryLogin() {
-
-    if(this.authService.login(this.login, this.password)) {
-      this.router.navigate(['/']);
-    }
+    this.authService.login(this.login, this.password).subscribe(success => {
+      if (success) {
+        this.router.navigate(['/']);
+      } else {
+        console.error(success);
+      }
+    });
   }
 }
