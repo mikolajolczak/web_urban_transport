@@ -6,14 +6,11 @@ import {BaseCrudComponent} from '../directives/base-crud.component';
 import {EmployeeMapperService} from '../services/employee-mapper.service';
 import {GenericTable} from '../generic-table/generic-table';
 import {EmployeeService} from '../services/employee.service';
-import {EditOfficeModal} from '../office-component/edit-office-modal/edit-office-modal';
-
 @Component({
   selector: 'app-employee-component',
   imports: [
     EditEmployeeModal,
     GenericTable,
-    EditOfficeModal
   ],
   templateUrl: './employee-component.html',
   styleUrl: './employee-component.scss'
