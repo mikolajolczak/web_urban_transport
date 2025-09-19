@@ -5,6 +5,7 @@ import com.example.demo.entity.Address;
 import com.example.demo.repository.OfficeRepository;
 import com.example.demo.repository.AddressRepository;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -35,19 +36,21 @@ public class OfficeService {
   }
 
   public Optional<Office> updateOffice(int id, Office updatedOffice) {
-    return officeRepository.findById(id).map((existing) -> {
+    return officeRepository.findById(id).map(existing -> {
       existing.setOfficeName(updatedOffice.getOfficeName());
 
-      Address oldAddress = updatedOffice.getAddress();
-      Address newAddress = new Address();
-      newAddress.setStreet(oldAddress.getStreet());
-      newAddress.setCity(oldAddress.getCity());
-      newAddress.setBuildingNumber(oldAddress.getBuildingNumber());
-      newAddress.setApartmentNumber(oldAddress.getApartmentNumber());
-      newAddress.setPostalCode(oldAddress.getPostalCode());
+      Address existingAddress = existing.getAddress();
+      Address updatedAddress = updatedOffice.getAddress();
 
-      Address savedAddress = addressRepository.save(newAddress);
-      existing.setAddress(savedAddress);
+      if (!areAddressesEqual(existingAddress, updatedAddress)) {
+        existingAddress.setStreet(updatedAddress.getStreet());
+        existingAddress.setCity(updatedAddress.getCity());
+        existingAddress.setBuildingNumber(updatedAddress.getBuildingNumber());
+        existingAddress.setApartmentNumber(updatedAddress.getApartmentNumber());
+        existingAddress.setPostalCode(updatedAddress.getPostalCode());
+
+        addressRepository.save(existingAddress);
+      }
 
       return officeRepository.save(existing);
     });
@@ -74,5 +77,14 @@ public class OfficeService {
     );
 
     return existingAddress.orElseGet(() -> addressRepository.save(address));
+  }
+  private boolean areAddressesEqual(Address a, Address b) {
+    if (a == b) return true;
+    if (a == null || b == null) return false;
+    return Objects.equals(a.getStreet(), b.getStreet()) &&
+        Objects.equals(a.getCity(), b.getCity()) &&
+        Objects.equals(a.getBuildingNumber(), b.getBuildingNumber()) &&
+        Objects.equals(a.getApartmentNumber(), b.getApartmentNumber()) &&
+        Objects.equals(a.getPostalCode(), b.getPostalCode());
   }
 }

@@ -15,4 +15,20 @@ public class Salary {
   private int id;
   @Column(nullable = false)
   private int amount;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int idParam) {
+    id = idParam;
+  }
+
+  public int getAmount() {
+    return amount;
+  }
+
+  public void setAmount(int amountParam) {
+    amount = amountParam;
+  }
 }

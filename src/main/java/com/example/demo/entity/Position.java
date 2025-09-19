@@ -16,4 +16,20 @@ public class Position {
   private int id;
   @Column(nullable = false)
   private String positionName;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int idParam) {
+    id = idParam;
+  }
+
+  public String getPositionName() {
+    return positionName;
+  }
+
+  public void setPositionName(String positionNameParam) {
+    positionName = positionNameParam;
+  }
 }

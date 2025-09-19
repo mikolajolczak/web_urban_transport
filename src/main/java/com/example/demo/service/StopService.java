@@ -5,6 +5,7 @@ import com.example.demo.entity.Stop;
 import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.StopRepository;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -45,16 +46,18 @@ public class StopService {
     return stopRepository.findById(id).map(existing -> {
       existing.setStopName(updatedStop.getStopName());
 
-      Address oldAddress = updatedStop.getAddress();
-      Address newAddress = new Address();
-      newAddress.setStreet(oldAddress.getStreet());
-      newAddress.setCity(oldAddress.getCity());
-      newAddress.setBuildingNumber(oldAddress.getBuildingNumber());
-      newAddress.setApartmentNumber(oldAddress.getApartmentNumber());
-      newAddress.setPostalCode(oldAddress.getPostalCode());
+      Address existingAddress = existing.getAddress();
+      Address updatedAddress = updatedStop.getAddress();
 
-      Address savedAddress = addressRepository.save(newAddress);
-      existing.setAddress(savedAddress);
+      if (!areAddressesEqual(existingAddress, updatedAddress)) {
+        existingAddress.setStreet(updatedAddress.getStreet());
+        existingAddress.setCity(updatedAddress.getCity());
+        existingAddress.setBuildingNumber(updatedAddress.getBuildingNumber());
+        existingAddress.setApartmentNumber(updatedAddress.getApartmentNumber());
+        existingAddress.setPostalCode(updatedAddress.getPostalCode());
+
+        addressRepository.save(existingAddress);
+      }
 
       return stopRepository.save(existing);
     });
@@ -75,5 +78,14 @@ public class StopService {
         );
 
     return existingAddress.orElseGet(() -> addressRepository.save(address));
+  }
+  private boolean areAddressesEqual(Address a, Address b) {
+    if (a == b) return true;
+    if (a == null || b == null) return false;
+    return Objects.equals(a.getStreet(), b.getStreet()) &&
+        Objects.equals(a.getCity(), b.getCity()) &&
+        Objects.equals(a.getBuildingNumber(), b.getBuildingNumber()) &&
+        Objects.equals(a.getApartmentNumber(), b.getApartmentNumber()) &&
+        Objects.equals(a.getPostalCode(), b.getPostalCode());
   }
 }

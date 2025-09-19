@@ -6,6 +6,9 @@ import {Employee} from '../../entities/employee';
 import {Office} from '../../entities/office';
 import {Position} from '../../entities/position';
 import {Salary} from '../../entities/salary';
+import {OfficeService} from '../../services/office.service';
+import {PositionService} from '../../services/position.service';
+import {SalaryService} from '../../services/salary.service';
 
 @Component({
   selector: 'app-edit-employee-modal',
@@ -16,38 +19,80 @@ import {Salary} from '../../entities/salary';
   styleUrl: './edit-employee-modal.scss'
 })
 export class EditEmployeeModal {
-  @Input() employee!: Employee;
+  private _employee!: Employee;
+  @Input()
+  set employee(value:Employee){
+    this._employee = value;
+    if (value){
+      this.loadOffices()
+      this.loadPositions()
+      this.loadSalaries()
+    }
+  }
+  get employee(){
+    return this._employee;
+  }
+  @Input() isEditMode!: boolean;
   @Output() close = new EventEmitter<void>();
-  @Output() saveEmployee = new EventEmitter<Employee>();
+  @Output() createEmployee = new EventEmitter<Employee>();
+  @Output() updateEmployee = new EventEmitter<Employee>();
+
+  constructor(private officeService:OfficeService, private positionService:PositionService, private salaryService:SalaryService) { }
 
 
   faChevronRight = faChevronRight;
   faFloppyDisk = faFloppyDisk;
 
-  offices: Office[] = [
-    {
-      id: 1, officeName: 'Warszawa',
-      address: undefined
-    },
-    {id: 2, officeName: 'Kraków'},
-    {id: 3, officeName: 'Gdańsk'},
-  ];
+  offices: Office[] = [];
 
-  positions:Position[]=[
-    {
-      id: 1,
-      positionName: "asd"
-    }
-  ]
+  loadOffices() {
+    this.officeService.getAll().subscribe({
+      next: offices => {
+        this.offices = offices
+      },
+      error: err => console.error(err)
+    });
+  }
 
-  salaries:Salary[]=[{
-    id: 1,
-    amount: 100
-  }]
+  positions:Position[]=[]
+
+  loadPositions(){
+    this.positionService.getAll().subscribe({
+      next: positions => {
+        this.positions = positions
+      },
+      error: err => console.error(err)
+    });
+  }
+
+  salaries:Salary[]=[]
+
+
+  loadSalaries(){
+    this.salaryService.getAll().subscribe({
+      next: salaries => {
+        this.salaries = salaries
+      },
+      error: err => console.error(err)
+    });
+  }
+
 
   save() {
-    this.saveEmployee.emit(this.employee);
+    if (this.isEditMode) {
+      this.updateEmployee.emit(this.employee);
+    } else {
+      this.createEmployee.emit(this.employee);
+    }
     this.close.emit();
+  }
+
+  get modalTitle(): string {
+    return this.isEditMode ? 'Edit Office' : 'Create New Office';
+  }
+
+  get saveButtonText(): string {
+    return this.isEditMode ? 'Update' : 'Create';
   }
 
 
