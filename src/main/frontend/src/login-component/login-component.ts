@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faChevronRight, faRightToBracket} from '@fortawesome/free-solid-svg-icons';
 import {FormsModule} from '@angular/forms';
@@ -13,19 +13,18 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent {
   faChevronRight = faChevronRight;
-  faRightToBracket=faRightToBracket;
-  login!:string;
-  password!:string;
+  faRightToBracket = faRightToBracket;
+  login!: string;
+  password!: string;
+
   constructor(private authService: AuthService, private router: Router) {
 
   }
+
   tryLogin() {
-    this.authService.login(this.login, this.password).subscribe(success => {
-      if (success) {
-        this.router.navigate(['/']);
-      } else {
-        console.error(success);
-      }
+    this.authService.login(this.login, this.password).subscribe({
+      next: () => this.router.navigate(['/']),
+      error: () => console.error('Login failed'),
     });
   }
 }

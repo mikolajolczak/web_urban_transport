@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {RouterLink} from '@angular/router';
-import {AuthService, UserRole} from '../../services/auth.service';
+import {AuthService} from '../../services/auth.service';
+import {UserRole, UserService} from '../../services/user.service';
 
 interface Tabs {
   name: string;
@@ -10,24 +11,11 @@ interface Tabs {
   roles: UserRole[];
 }
 
-
-const tabs: Tabs[] = [{
-  name: "Employees",
-  url: "employee",
-  roles: ["ADMIN"]
-}, {
+const tabs: Tabs[] = [{name: "Employees", url: "employee", roles: ["ADMIN"]}, {
   name: "Vehicles",
   url: "vehicles",
   roles: ["ADMIN"]
-}, {
-  name: "Stops",
-  url: "stops",
-  roles: ["ADMIN"]
-}, {
-  name: "Offices",
-  url: "offices",
-  roles: ["ADMIN"]
-}, {
+}, {name: "Stops", url: "stops", roles: ["ADMIN"]}, {name: "Offices", url: "offices", roles: ["ADMIN"]}, {
   name: "About",
   url: "about",
   roles: ["ADMIN", "USER"]
@@ -43,11 +31,11 @@ export class Header {
   faChevronRight = faChevronRight;
   tabs = tabs;
 
-  constructor(private authService: AuthService) {
+  constructor(private userService: UserService, private authService: AuthService) {
   }
 
   isLoggedIn() {
-    return this.authService.isLoggedIn();
+    return this.userService.isLoggedIn();
   }
 
   tryLogout() {
@@ -55,7 +43,7 @@ export class Header {
   }
 
   hasRole(roles: UserRole[]) {
-    const currRole = this.authService.getRole();
+    const currRole = this.userService.getRole();
     if (currRole) {
       return roles.includes(currRole);
     }
