@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.LoginResponse;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.entity.User;
 import com.example.demo.service.JwtService;
 import com.example.demo.service.UserService;
@@ -72,6 +73,21 @@ public class UserController {
       return ResponseEntity.ok().build();
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+  }
+  @PostMapping("/register")
+  public ResponseEntity<String> register(@RequestBody
+                                         RegisterRequest registerRequest) {
+    try {
+      User newUser = userService.createUser(
+          registerRequest.getUsername(),
+          registerRequest.getPassword(),
+          registerRequest.getRole()
+      );
+
+      return ResponseEntity.status(HttpStatus.CREATED).build();
+    } catch (RuntimeException e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
   }
 }
