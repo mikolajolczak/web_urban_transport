@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, map, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../environments/environment';
 
@@ -18,7 +18,8 @@ export class UserService {
   protected apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {
   }
-
+  isLoggedIn$ = this.user$.pipe(map(user => !!user));
+  role$ = this.user$.pipe(map(user => user?.role ?? null));
   loadUser() {
     return this.http.get<User>(`${this.apiUrl}/auth/me`).subscribe({
       next: user => {

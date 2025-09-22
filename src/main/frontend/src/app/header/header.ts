@@ -4,6 +4,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {RouterLink} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {UserRole, UserService} from '../../services/user.service';
+import {Observable} from 'rxjs';
+import {AsyncPipe} from '@angular/common';
 
 interface Tabs {
   name: string;
@@ -23,30 +25,28 @@ const tabs: Tabs[] = [{name: "Employees", url: "employee", roles: ["ADMIN"]}, {
 
 @Component({
   selector: 'app-header',
-  imports: [FontAwesomeModule, RouterLink],
+  imports: [FontAwesomeModule, RouterLink, AsyncPipe],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
 export class Header {
   faChevronRight = faChevronRight;
   tabs = tabs;
+  isLoggedIn$: Observable<boolean>;
+  role$: Observable<UserRole | null>;
 
   constructor(private userService: UserService, private authService: AuthService) {
+    this.isLoggedIn$ = this.userService.isLoggedIn$;
+    this.role$ = this.userService.role$;
   }
 
-  isLoggedIn() {
-    return this.userService.isLoggedIn();
-  }
 
   tryLogout() {
-    this.authService.logout();
+    this.authService.logout().subscribe();
   }
 
-  hasRole(roles: UserRole[]) {
-    const currRole = this.userService.getRole();
-    if (currRole) {
-      return roles.includes(currRole);
-    }
-    return false
+
+  hasRole(roles: UserRole[], role: UserRole | null) {
+    return role ? roles.includes(role) : false;
   }
 }
