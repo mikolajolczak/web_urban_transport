@@ -4,7 +4,7 @@ import {Vehicle} from '../entities/vehicle';
 import {VehicleMapperService} from '../services/vehicle-mapper.service';
 import {TableViewModel} from '../views/table-view.model';
 import {GenericTable} from '../generic-table/generic-table';
-import {BaseCrudComponent} from '../directives/base-crud.component';
+import {BaseCrudComponent, CRUD_MAPPER_TOKEN, CRUD_SERVICE_TOKEN} from '../directives/base-crud.component';
 import {EditVehicleModal} from './edit-vehicle-modal/edit-vehicle-modal';
 import {VehicleService} from '../services/vehicle.service';
 
@@ -13,13 +13,11 @@ import {VehicleService} from '../services/vehicle.service';
   standalone: true,
   imports: [FontAwesomeModule, GenericTable, EditVehicleModal],
   templateUrl: './vehicle-component.html',
-  styleUrl: './vehicle-component.scss'
+  styleUrl: './vehicle-component.scss',
+  providers: [{provide: CRUD_MAPPER_TOKEN, useClass: VehicleMapperService},
+    {provide: CRUD_SERVICE_TOKEN, useClass: VehicleService}],
 })
 export class VehicleComponent extends BaseCrudComponent<Vehicle, TableViewModel, VehicleService> {
-
-  constructor(mapper: VehicleMapperService, vehicleService: VehicleService) {
-    super(mapper,vehicleService);
-  }
 
   protected setupTableColumns(): void {
     const sample = this.mapper.mapToView({
@@ -72,9 +70,9 @@ export class VehicleComponent extends BaseCrudComponent<Vehicle, TableViewModel,
     };
   }
 
-  protected flattenItemForTable(vehicle: Vehicle): any {
+  protected flattenItemForTable(vehicle: Vehicle): Record<string, string> {
     const mapped = this.mapper.mapToView(vehicle);
-    const flattened: any = {};
+    const flattened: Record<string, string> = {};
 
     mapped.forEach(item => {
       const key = item.label.toLowerCase().replace(/\s+/g, '');

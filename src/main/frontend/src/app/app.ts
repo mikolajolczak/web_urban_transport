@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Footer} from './footer/footer';
 import {Header} from './header/header';
 import {RouterOutlet} from '@angular/router';
@@ -11,8 +11,8 @@ import {UserService} from '../services/user.service';
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
-  constructor(private userService: UserService) {
-  }
+
+  private userService = inject(UserService);
 
   ngOnInit() {
     this.userService.loadUser()

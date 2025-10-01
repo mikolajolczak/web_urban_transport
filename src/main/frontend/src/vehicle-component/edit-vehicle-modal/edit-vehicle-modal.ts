@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Vehicle} from '../../entities/vehicle';
 import {faChevronRight, faFloppyDisk} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -29,15 +29,14 @@ export class EditVehicleModal {
   }
 
   @Input() isEditMode!: boolean;
-  @Output() close = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<void>();
   @Output() createVehicle = new EventEmitter<Vehicle>();
   @Output() updateVehicle = new EventEmitter<Vehicle>();
 
   faChevronRight = faChevronRight;
   faFloppyDisk = faFloppyDisk;
 
-  constructor(private officeService: OfficeService) {
-  }
+  private officeService = inject(OfficeService);
 
   offices: Office[] = [];
 
@@ -56,7 +55,7 @@ export class EditVehicleModal {
     } else {
       this.createVehicle.emit(this.vehicle);
     }
-    this.close.emit();
+    this.closed.emit();
   }
 
   get modalTitle(): string {

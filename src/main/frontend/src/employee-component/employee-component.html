@@ -10,6 +10,6 @@
   (delete)="removeItem($event)"
   (closeModal)="closeModal()">
 
-  <app-edit-employee-modal [employee]="chosenItem" [isEditMode]="isEditMode" (close)="closeModal()"
+  <app-edit-employee-modal [employee]="chosenItem" [isEditMode]="isEditMode" (closed)="closeModal()"
                            (createEmployee)="saveItem($event)" (updateEmployee)="updateItem($event)"/>
 </app-generic-table>

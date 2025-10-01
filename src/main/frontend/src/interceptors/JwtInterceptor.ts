@@ -4,7 +4,7 @@ import {
   HttpHandlerFn
 } from '@angular/common/http';
 
-export const jwtInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
+export const jwtInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   req = req.clone({
     withCredentials: true
   });

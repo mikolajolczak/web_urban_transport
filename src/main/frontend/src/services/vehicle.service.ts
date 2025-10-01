@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import { GenericCrudService } from './generic-crud.service';
-import {Stop} from '../entities/Stop';
+import {Injectable} from '@angular/core';
+import {GenericCrudService} from './generic-crud.service';
 import {Vehicle} from '../entities/vehicle';
 
 @Injectable({

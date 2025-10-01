@@ -13,7 +13,7 @@
   <app-edit-vehicle-modal
     [vehicle]="chosenItem"
     [isEditMode]="isEditMode"
-    (close)="closeModal()"
+    (closed)="closeModal()"
     (createVehicle)="saveItem($event)"
     (updateVehicle)="updateItem($event)"/>
 </app-generic-table>

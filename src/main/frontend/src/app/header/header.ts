@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {RouterLink} from '@angular/router';
@@ -35,7 +35,11 @@ export class Header {
   isLoggedIn$: Observable<boolean>;
   role$: Observable<UserRole | null>;
 
-  constructor(private userService: UserService, private authService: AuthService) {
+  private userService = inject(UserService);
+  private authService = inject(AuthService);
+
+
+  constructor() {
     this.isLoggedIn$ = this.userService.isLoggedIn$;
     this.role$ = this.userService.role$;
   }

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
+import {inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,7 @@ import { environment } from '../environments/environment';
 export abstract class GenericCrudService<T> {
   protected apiUrl = environment.apiUrl;
   protected abstract endpoint: string;
-
-  constructor(protected http: HttpClient) {}
+  protected http = inject(HttpClient);
 
   getAll(): Observable<T[]> {
     return this.http.get<T[]>(`${this.apiUrl}/${this.endpoint}`);
@@ -28,7 +27,7 @@ export abstract class GenericCrudService<T> {
     return this.http.put<T>(`${this.apiUrl}/${this.endpoint}/${id}`, entity);
   }
 
-  delete(id: number): Observable<any> {
+  delete(id: number): Observable<object> {
     return this.http.delete(`${this.apiUrl}/${this.endpoint}/${id}`);
   }
 }

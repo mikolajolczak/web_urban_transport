@@ -1,5 +1,7 @@
-import {ChangeDetectorRef, Directive, inject, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Directive, inject, InjectionToken, OnInit} from '@angular/core';
 import {GenericCrudService} from '../services/generic-crud.service';
+import {TableViewModel} from '../views/table-view.model';
+import {TableItem} from '../generic-table/generic-table';
 
 export interface CrudItem {
   id: number;
@@ -8,19 +10,21 @@ export interface CrudItem {
 export interface CrudMapper<T, V> {
   mapToView(item: T): V[];
 }
-
+export const CRUD_MAPPER_TOKEN = new InjectionToken<CrudMapper<unknown, unknown>>(
+  'CRUD_MAPPER_TOKEN'
+);
+export const CRUD_SERVICE_TOKEN = new InjectionToken<GenericCrudService<unknown>>('CRUD_SERVICE_TOKEN');
 @Directive()
 export abstract class BaseCrudComponent<T extends CrudItem, V, S extends GenericCrudService<T>> implements OnInit {
   items: T[] = [];
-  itemsView: any[] = [];
-  tableColumns: any[] = [];
+  itemsView: TableItem[] = [];
+  tableColumns: TableViewModel[] = [];
   showModal = false;
   chosenItem!: T;
   isEditMode = false;
   cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
-
-  protected constructor(protected mapper: CrudMapper<T, V>, protected service: S) {
-  }
+  protected mapper = inject<CrudMapper<T, V>>(CRUD_MAPPER_TOKEN);
+  protected service = inject<S>(CRUD_SERVICE_TOKEN as InjectionToken<S>);
 
   ngOnInit() {
     this.initializeData();
@@ -41,20 +45,22 @@ export abstract class BaseCrudComponent<T extends CrudItem, V, S extends Generic
 
   protected abstract createNewItem(): T;
 
-  protected abstract flattenItemForTable(item: T): any;
+  protected abstract flattenItemForTable(item: T): Record<string, string>;
 
   protected updateView() {
     this.itemsView = this.items.map(item => ({
       id: item.id,
-      originalData: item,
       ...this.flattenItemForTable(item)
     }));
   }
 
-  openModal(itemView: any): void {
-    this.chosenItem = { ...itemView.originalData };
-    this.isEditMode = true;
-    this.showModal = true;
+  openModal(itemView: TableItem): void {
+    const originalItem = this.items.find(item => item.id === itemView.id);
+    if (originalItem) {
+      this.chosenItem = { ...originalItem };
+      this.isEditMode = true;
+      this.showModal = true;
+    }
   }
 
   closeModal(): void {

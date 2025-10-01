@@ -15,7 +15,7 @@ import {Office} from '../../entities/office';
 export class EditOfficeModal {
   @Input() office!: Office;
   @Input() isEditMode!: boolean;
-  @Output() close = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<void>();
   @Output() createOffice = new EventEmitter<Office>();
   @Output() updateOffice = new EventEmitter<Office>();
 
@@ -83,7 +83,7 @@ export class EditOfficeModal {
     } else {
       this.createOffice.emit(this.office);
     }
-    this.close.emit();
+    this.closed.emit();
   }
 
   get modalTitle(): string {

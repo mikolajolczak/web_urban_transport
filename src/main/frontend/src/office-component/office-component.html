@@ -13,7 +13,7 @@
   <app-edit-office-modal
     [office]="chosenItem"
     [isEditMode]="isEditMode"
-    (close)="closeModal()"
+    (closed)="closeModal()"
     (createOffice)="saveItem($event)"
     (updateOffice)="updateItem($event)"
   />

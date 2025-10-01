@@ -1,11 +1,12 @@
 <div>
-  <label>Username:</label>
-  <input type="text"  [(ngModel)]="login">
-  <label>Password:</label>
-  <input type="text"  [(ngModel)]="password">
+  <label for="username">Username:</label>
+  <input id="username" type="text" [(ngModel)]="login">
+  <label for="password">Password:</label>
+  <input id="password" type="text" [(ngModel)]="password">
   <button>
     <fa-icon [icon]="faChevronRight"></fa-icon>
-    Cancel</button>
+    Cancel
+  </button>
   <button (click)="tryLogin()">Sign in
     <fa-icon [icon]="faRightToBracket"></fa-icon>
   </button>

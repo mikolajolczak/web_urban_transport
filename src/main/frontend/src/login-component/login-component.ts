@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faChevronRight, faRightToBracket} from '@fortawesome/free-solid-svg-icons';
 import {FormsModule} from '@angular/forms';
@@ -16,10 +16,8 @@ export class LoginComponent {
   faRightToBracket = faRightToBracket;
   login!: string;
   password!: string;
-
-  constructor(private authService: AuthService, private router: Router) {
-
-  }
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   tryLogin() {
     this.authService.login(this.login, this.password).subscribe({

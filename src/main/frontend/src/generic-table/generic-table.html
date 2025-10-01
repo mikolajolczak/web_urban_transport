@@ -1,6 +1,6 @@
 <div class="title" [style.width]="tableWidth">
   <span>{{ title }}:</span>
-  <a (click)="onCreate()">
+  <a (click)="onCreate()" (keyup.enter)="onCreate()" (keyup.space)="onCreate()" tabindex="0" role="button">
     <fa-icon [icon]="faChevronRight"></fa-icon>
     {{ createButtonText }}
   </a>
@@ -23,20 +23,24 @@
           <td>{{ getItemValue(item, column.value) }}</td>
         }
         <td class="action">
-          <a (click)="onEdit(item)">
+          <a (click)="onEdit(item)" (keyup.enter)="onEdit(item)" (keyup.space)="onEdit(item)" tabindex="0"
+             role="button">
             <fa-icon [icon]="faPencilAlt"></fa-icon>
           </a>
         </td>
         <td (mouseleave)="cancelDelete(i)" class="action">
           @if (!confirmDelete[i]) {
-            <a class="delete" (click)="askDelete(i)">
+            <a class="delete" (click)="askDelete(i)" (keyup.enter)="askDelete(i)" (keyup.space)="askDelete(i)"
+               tabindex="0" role="button">
               <fa-icon [icon]="faTrashAlt"></fa-icon>
             </a>
           } @else {
-            <a (click)="cancelDelete(i)" class="delete">
+            <a (click)="cancelDelete(i)" (keyup.enter)="cancelDelete(i)" (keyup.space)="cancelDelete(i)" class="delete"
+               tabindex="0" role="button">
               <fa-icon [icon]="faXmark"></fa-icon>
             </a>
-            <a (click)="removeItem(i)">
+            <a (click)="removeItem(i)" (keyup.enter)="removeItem(i)" (keyup.space)="removeItem(i)" tabindex="0"
+               role="button">
               <fa-icon [icon]="faCheck"></fa-icon>
             </a>
           }
@@ -47,8 +51,9 @@
 </table>
 
 @if (showModal) {
-  <div class="overlay" (click)="onCloseModal()">
-    <div class="modal" (click)="$event.stopPropagation()">
+  <div class="overlay" (click)="onCloseModal()" (keyup.escape)="onCloseModal()" tabindex="0" role="dialog"
+       aria-modal="true">
+    <div class="modal" (click)="$event.stopPropagation()" (keyup.escape)="onCloseModal()" tabindex="0">
       <ng-content></ng-content>
     </div>
   </div>

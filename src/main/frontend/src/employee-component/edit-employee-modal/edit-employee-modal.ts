@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {faChevronRight, faFloppyDisk} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
@@ -21,24 +21,27 @@ import {SalaryService} from '../../services/salary.service';
 export class EditEmployeeModal {
   private _employee!: Employee;
   @Input()
-  set employee(value:Employee){
+  set employee(value: Employee) {
     this._employee = value;
-    if (value){
+    if (value) {
       this.loadOffices()
       this.loadPositions()
       this.loadSalaries()
     }
   }
-  get employee(){
+
+  get employee() {
     return this._employee;
   }
+
   @Input() isEditMode!: boolean;
-  @Output() close = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<void>();
   @Output() createEmployee = new EventEmitter<Employee>();
   @Output() updateEmployee = new EventEmitter<Employee>();
 
-  constructor(private officeService:OfficeService, private positionService:PositionService, private salaryService:SalaryService) { }
-
+  private officeService = inject(OfficeService)
+  private positionService = inject(PositionService)
+  private salaryService = inject(SalaryService)
 
   faChevronRight = faChevronRight;
   faFloppyDisk = faFloppyDisk;
@@ -54,9 +57,9 @@ export class EditEmployeeModal {
     });
   }
 
-  positions:Position[]=[]
+  positions: Position[] = []
 
-  loadPositions(){
+  loadPositions() {
     this.positionService.getAll().subscribe({
       next: positions => {
         this.positions = positions
@@ -65,10 +68,10 @@ export class EditEmployeeModal {
     });
   }
 
-  salaries:Salary[]=[]
+  salaries: Salary[] = []
 
 
-  loadSalaries(){
+  loadSalaries() {
     this.salaryService.getAll().subscribe({
       next: salaries => {
         this.salaries = salaries
@@ -84,7 +87,7 @@ export class EditEmployeeModal {
     } else {
       this.createEmployee.emit(this.employee);
     }
-    this.close.emit();
+    this.closed.emit();
   }
 
   get modalTitle(): string {

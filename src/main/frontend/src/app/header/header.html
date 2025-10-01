@@ -14,10 +14,10 @@
 
   <span class="container">
     @if (isLoggedIn$ | async) {
-      <a (click)="tryLogout()">
+      <button (click)="tryLogout()" >
         <fa-icon [icon]="faChevronRight"></fa-icon>
         Sign Out
-      </a>
+      </button>
     } @else {
       <a routerLink="/login">
         <fa-icon [icon]="faChevronRight"></fa-icon>

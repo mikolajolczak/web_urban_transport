@@ -2,8 +2,9 @@ import {Address} from './address';
 import {Salary} from './salary';
 import {Position} from './position';
 import {Office} from './office';
+import {CrudItem} from '../directives/base-crud.component';
 
-export interface Employee {
+export interface Employee extends CrudItem {
   id: number;
   firstName: string;
   lastName: string;

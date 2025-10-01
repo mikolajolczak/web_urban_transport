@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -10,11 +10,11 @@ import {Router} from '@angular/router';
 export class AuthService {
   protected apiUrl = environment.apiUrl;
 
+  private http = inject(HttpClient);
+  private userService = inject(UserService);
+  private router = inject(Router);
 
-  constructor(private http: HttpClient, private userService: UserService, private router:Router) {
-  }
-
-  login(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<object> {
     return this.http.post(`${this.apiUrl}/auth/login`, {username, password})
       .pipe(
         tap(() => {
@@ -23,7 +23,7 @@ export class AuthService {
       );
   }
 
-  logout(): Observable<any> {
+  logout(): Observable<object> {
     return this.http.post(`${this.apiUrl}/auth/logout`, {})
       .pipe(tap(() => {
         this.userService.clearUser()

@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import { GenericCrudService } from './generic-crud.service';
-import {Address} from '../entities/address';
+import {Injectable} from '@angular/core';
+import {GenericCrudService} from './generic-crud.service';
 import {Salary} from '../entities/salary';
 
 @Injectable({

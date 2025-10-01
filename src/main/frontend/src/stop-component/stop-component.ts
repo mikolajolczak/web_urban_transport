@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {BaseCrudComponent} from '../directives/base-crud.component';
+import {BaseCrudComponent, CRUD_MAPPER_TOKEN, CRUD_SERVICE_TOKEN} from '../directives/base-crud.component';
 import {Stop} from '../entities/Stop';
 import {TableViewModel} from '../views/table-view.model';
 import {StopMapperService} from '../services/stop-mapper.service';
@@ -14,12 +14,10 @@ import {StopService} from '../services/stop.service';
     EditStopModal,
   ],
   templateUrl: './stop-component.html',
-  styleUrl: './stop-component.scss'
+  styleUrl: './stop-component.scss', providers: [{provide: CRUD_MAPPER_TOKEN, useClass: StopMapperService},
+    {provide: CRUD_SERVICE_TOKEN, useClass: StopService}],
 })
 export class StopComponent extends BaseCrudComponent<Stop, TableViewModel, StopService> {
-  constructor(mapper: StopMapperService, stopService: StopService) {
-    super(mapper,stopService);
-  }
 
   protected override setupTableColumns(): void {
     const sample = this.mapper.mapToView({address: undefined, id: 0, stopName: ''});
@@ -43,9 +41,9 @@ export class StopComponent extends BaseCrudComponent<Stop, TableViewModel, StopS
     }
   }
 
-  protected override flattenItemForTable(stop: Stop) {
+  protected override flattenItemForTable(stop: Stop): Record<string, string> {
     const mapped = this.mapper.mapToView(stop);
-    const flattened: any = {};
+    const flattened: Record<string, string> = {};
 
     mapped.forEach(item => {
       const key = item.label.toLowerCase().replace(/\s+/g, '');

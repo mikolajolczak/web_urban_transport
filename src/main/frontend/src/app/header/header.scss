@@ -33,14 +33,14 @@ fa-icon {
   color: #3D9970;
 }
 
-a {
+a, button {
   cursor: pointer;
   margin-left: 1.5rem;
   text-decoration: none;
   color: inherit;
 }
 
-a:hover {
+a:hover, button:hover {
   color: #3D9970;
   transition: color 0.3s;
 }

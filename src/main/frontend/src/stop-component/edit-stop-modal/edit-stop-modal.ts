@@ -15,7 +15,7 @@ import {Stop} from '../../entities/Stop';
 export class EditStopModal {
   @Input() stop!: Stop;
   @Input() isEditMode!: boolean;
-  @Output() close = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<void>();
   @Output() createStop = new EventEmitter<Stop>();
   @Output() updateStop = new EventEmitter<Stop>();
 
@@ -84,7 +84,7 @@ export class EditStopModal {
     } else {
       this.createStop.emit(this.stop);
     }
-    this.close.emit();
+    this.closed.emit();
   }
   get modalTitle(): string {
     return this.isEditMode ? 'Edit Stop' : 'Create New Stop';

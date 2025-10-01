@@ -1,35 +1,34 @@
 <div class="title">{{ modalTitle }}</div>
 @if (vehicle) {
   <div>
-    <label>Brand</label>
-    <input [(ngModel)]="vehicle.brand" type="text">
+    <label for="brand">Brand</label>
+    <input id="brand" [(ngModel)]="vehicle.brand" type="text">
 
-    <label>Model</label>
-    <input [(ngModel)]="vehicle.model" type="text">
+    <label for="model">Model</label>
+    <input id="model" [(ngModel)]="vehicle.model" type="text">
 
-    <label>Production Year</label>
-    <input [(ngModel)]="vehicle.productionYear" type="text">
+    <label for="productionYear">Production Year</label>
+    <input id="productionYear" [(ngModel)]="vehicle.productionYear" type="text">
 
-    <label>Registration Number</label>
-    <input [(ngModel)]="vehicle.registrationNumber" type="text">
+    <label for="registrationNumber">Registration Number</label>
+    <input id="registrationNumber" [(ngModel)]="vehicle.registrationNumber" type="text">
 
-    <label>Purchase Date</label>
-    <input [(ngModel)]="vehicle.purchaseDate" type="date">
+    <label for="purchaseDate">Purchase Date</label>
+    <input id="purchaseDate" [(ngModel)]="vehicle.purchaseDate" type="date">
 
-    <label>Insurance Date</label>
-    <input [(ngModel)]="vehicle.insuranceDate" type="date">
+    <label for="insuranceDate">Insurance Date</label>
+    <input id="insuranceDate" [(ngModel)]="vehicle.insuranceDate" type="date">
 
-    <label>Office</label>
-    <select [(ngModel)]="vehicle.office.id">
+    <label for="office">Office</label>
+    <select id="office" [(ngModel)]="vehicle.office.id">
       @for (office of offices; track office.id) {
         <option [value]="office.id">
           {{ office.officeName }}
         </option>
       }
-
     </select>
 
-    <button (click)="close.emit()">
+    <button (click)="closed.emit()">
       <fa-icon [icon]="faChevronRight"></fa-icon>
       Cancel
     </button>

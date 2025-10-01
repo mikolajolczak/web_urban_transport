@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {TableViewModel} from '../views/table-view.model';
 import {EmployeeMapperService} from '../services/employee-mapper.service';
 import {faChevronRight, faSave, faTimes, faUserEdit} from '@fortawesome/free-solid-svg-icons';
@@ -54,16 +54,12 @@ export class AboutComponent implements OnInit, OnDestroy {
   };
 
   private destroy$ = new Subject<void>();
-
-  constructor(
-    private mapper: EmployeeMapperService,
-    private employeeService: EmployeeService,
-    private userService: UserService,
-    private officeService: OfficeService,
-    private positionService: PositionService,
-    private salaryService: SalaryService
-  ) {
-  }
+  private mapper = inject(EmployeeMapperService);
+  private employeeService = inject(EmployeeService);
+  private userService = inject(UserService);
+  private officeService = inject(OfficeService);
+  private positionService = inject(PositionService);
+  private salaryService = inject(SalaryService)
 
   ngOnInit(): void {
     this.loadOffices();
