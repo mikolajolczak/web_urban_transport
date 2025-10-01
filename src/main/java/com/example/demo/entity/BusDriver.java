@@ -28,5 +28,4 @@ public class BusDriver {
   @Column(nullable = false)
   private Date medicalCheckExpiryDate;
 
-
 }

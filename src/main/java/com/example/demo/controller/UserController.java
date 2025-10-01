@@ -98,7 +98,8 @@ public class UserController {
   }
 
   @GetMapping("/me")
-  public ResponseEntity<User> getCurrentUser(HttpServletRequest request) {
+  public ResponseEntity<LoginResponse> getCurrentUser(
+      HttpServletRequest request) {
     try {
       Optional<String> token = extractTokenFromCookie(request);
 
@@ -112,11 +113,21 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
       }
 
-       User user = userService.findByUsername(username).orElse(null);
-       if (user == null) {
-         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-       }
-       return ResponseEntity.ok(user);
+      User user = userService.findByUsername(username).orElse(null);
+      if (user == null) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+      }
+      LoginResponse loginResponse;
+      if (user.getEmployee() == null) {
+        loginResponse =
+            new LoginResponse(user.getRole(), -1,
+                username);
+      } else {
+        loginResponse =
+            new LoginResponse(user.getRole(), user.getEmployee().getId(),
+                username);
+      }
+      return ResponseEntity.ok(loginResponse);
 
 
     } catch (Exception e) {
