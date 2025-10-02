@@ -6,6 +6,7 @@ div {
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
   user-select: none;
   align-items: center;
+  background-color: #FFFFFF;
 }
 
 fa-icon {
@@ -38,6 +39,10 @@ a, button {
   margin-left: 1.5rem;
   text-decoration: none;
   color: inherit;
+  background: none;
+  border: none;
+  font-size: medium;
+  padding: 0;
 }
 
 a:hover, button:hover {
