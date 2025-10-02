@@ -25,4 +25,36 @@ public class RouteStop {
   private Stop stop;
   @Column(nullable = false)
   private Date arrivalTime;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int idParam) {
+    id = idParam;
+  }
+
+  public Route getRoute() {
+    return route;
+  }
+
+  public void setRoute(Route routeParam) {
+    route = routeParam;
+  }
+
+  public Stop getStop() {
+    return stop;
+  }
+
+  public void setStop(Stop stopParam) {
+    stop = stopParam;
+  }
+
+  public Date getArrivalTime() {
+    return arrivalTime;
+  }
+
+  public void setArrivalTime(Date arrivalTimeParam) {
+    arrivalTime = arrivalTimeParam;
+  }
 }

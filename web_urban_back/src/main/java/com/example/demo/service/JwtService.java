@@ -21,6 +21,22 @@ public class JwtService {
   @Value("${jwt.expiration:86400000}")
   private Long jwtExpiration;
 
+  public String getSecretKey() {
+    return secretKey;
+  }
+
+  public void setSecretKey(String secretKeyParam) {
+    secretKey = secretKeyParam;
+  }
+
+  public Long getJwtExpiration() {
+    return jwtExpiration;
+  }
+
+  public void setJwtExpiration(Long jwtExpirationParam) {
+    jwtExpiration = jwtExpirationParam;
+  }
+
   private SecretKey getSigningKey() {
     return Keys.hmacShaKeyFor(secretKey.getBytes());
   }
@@ -62,7 +78,7 @@ public class JwtService {
     return extractExpiration(token).before(new Date());
   }
 
-  private Date extractExpiration(String token) {
+  public Date extractExpiration(String token) {
     return extractClaim(token, Claims::getExpiration);
   }
 

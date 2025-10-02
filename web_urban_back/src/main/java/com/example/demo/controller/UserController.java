@@ -139,7 +139,7 @@ public class UserController {
   public ResponseEntity<String> register(
       @RequestBody RegisterRequest registerRequest) {
     try {
-      User newUser = userService.createUser(
+      User ignored = userService.createUser(
           registerRequest.getUsername(),
           registerRequest.getPassword(),
           registerRequest.getRole()

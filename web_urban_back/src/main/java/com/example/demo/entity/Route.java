@@ -17,5 +17,19 @@ public class Route {
   @Column(nullable = false)
   private String routeName;
 
+  public int getId() {
+    return id;
+  }
 
+  public void setId(int idParam) {
+    id = idParam;
+  }
+
+  public String getRouteName() {
+    return routeName;
+  }
+
+  public void setRouteName(String routeNameParam) {
+    routeName = routeNameParam;
+  }
 }

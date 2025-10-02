@@ -110,7 +110,7 @@ public class EmployeeService {
     return false;
   }
 
-  private Address findOrCreateAddress(Address address) {
+  public Address findOrCreateAddress(Address address) {
     if (address == null) {
       return null;
     }
@@ -127,7 +127,7 @@ public class EmployeeService {
     return existingAddress.orElseGet(() -> addressRepository.save(address));
   }
 
-  private boolean areAddressesEqual(Address a, Address b) {
+  public boolean areAddressesEqual(Address a, Address b) {
     if (a == b) {
       return true;
     }
