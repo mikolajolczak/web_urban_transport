@@ -16,7 +16,6 @@ export interface TableColumn {
 
 @Component({
   selector: 'app-generic-table',
-  standalone: true,
   imports: [
     FaIconComponent, FontAwesomeModule, CommonModule
   ],

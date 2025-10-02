@@ -11,7 +11,6 @@ const errorDescriptions: Record<string, string> = {
 
 @Component({
   selector: 'app-error-component',
-  standalone: true,
   imports: [FontAwesomeModule],
   templateUrl: './error-component.html',
   styleUrls: ['./error-component.scss']
@@ -19,7 +18,7 @@ const errorDescriptions: Record<string, string> = {
 export class ErrorComponent {
   faXmark = faXmark;
   code = "500";
-  protected readonly errorDescriptions = errorDescriptions;
+  public readonly errorDescriptions = errorDescriptions;
 
   private route = inject(ActivatedRoute);
 

@@ -18,6 +18,7 @@ export class UserService {
   protected apiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
+
   isLoggedIn$ = this.user$.pipe(map(user => !!user));
   role$ = this.user$.pipe(map(user => user?.role ?? null));
 

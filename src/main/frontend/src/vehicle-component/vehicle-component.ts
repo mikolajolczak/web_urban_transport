@@ -10,7 +10,6 @@ import {VehicleService} from '../services/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-component',
-  standalone: true,
   imports: [FontAwesomeModule, GenericTable, EditVehicleModal],
   templateUrl: './vehicle-component.html',
   styleUrl: './vehicle-component.scss',
@@ -47,7 +46,7 @@ export class VehicleComponent extends BaseCrudComponent<Vehicle, TableViewModel,
     }));
   }
 
-  protected createNewItem(): Vehicle {
+  public createNewItem(): Vehicle {
     return {
       id: 0,
       brand: '',
@@ -70,7 +69,7 @@ export class VehicleComponent extends BaseCrudComponent<Vehicle, TableViewModel,
     };
   }
 
-  protected flattenItemForTable(vehicle: Vehicle): Record<string, string> {
+  public flattenItemForTable(vehicle: Vehicle): Record<string, string> {
     const mapped = this.mapper.mapToView(vehicle);
     const flattened: Record<string, string> = {};
 

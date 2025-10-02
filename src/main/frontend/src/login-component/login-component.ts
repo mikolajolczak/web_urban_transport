@@ -20,9 +20,12 @@ export class LoginComponent {
   private router = inject(Router);
 
   tryLogin() {
-    this.authService.login(this.login, this.password).subscribe({
-      next: () => this.router.navigate(['/']),
-      error: () => console.error('Login failed'),
-    });
+    if (this.login && this.password) {
+      this.authService.login(this.login, this.password).subscribe({
+        next: () => this.router.navigate(['/']),
+        error: () => console.error('Login failed'),
+      });
+    }
+
   }
 }

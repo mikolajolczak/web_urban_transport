@@ -28,7 +28,7 @@ export class StopComponent extends BaseCrudComponent<Stop, TableViewModel, StopS
     }));
   }
 
-  protected override createNewItem(): Stop {
+  public override createNewItem(): Stop {
     return {
       id: 0,
       stopName: "", address: {
@@ -41,7 +41,7 @@ export class StopComponent extends BaseCrudComponent<Stop, TableViewModel, StopS
     }
   }
 
-  protected override flattenItemForTable(stop: Stop): Record<string, string> {
+  public override flattenItemForTable(stop: Stop): Record<string, string> {
     const mapped = this.mapper.mapToView(stop);
     const flattened: Record<string, string> = {};
 

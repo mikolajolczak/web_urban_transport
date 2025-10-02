@@ -54,7 +54,7 @@ export class EmployeeComponent extends BaseCrudComponent<Employee, TableViewMode
     }));
   }
 
-  protected createNewItem(): Employee {
+  public createNewItem(): Employee {
     return {
       id: 0,
       firstName: "",
@@ -83,7 +83,7 @@ export class EmployeeComponent extends BaseCrudComponent<Employee, TableViewMode
     };
   }
 
-  protected flattenItemForTable(employee: Employee): Record<string, string> {
+  public flattenItemForTable(employee: Employee): Record<string, string> {
     const mapped = this.mapper.mapToView(employee);
     const flattened: Record<string, string> = {};
 

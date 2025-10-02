@@ -9,7 +9,6 @@ import {OfficeService} from '../services/office.service';
 
 @Component({
   selector: 'app-office-component',
-  standalone: true,
   imports: [GenericTable, EditOfficeModal],
   templateUrl: './office-component.html',
   styleUrls: ['./office-component.scss'], providers: [{provide: CRUD_MAPPER_TOKEN, useClass: OfficeMapperService},
@@ -30,7 +29,7 @@ export class OfficeComponent extends BaseCrudComponent<Office, TableViewModel, O
     }));
   }
 
-  protected createNewItem(): Office {
+  public createNewItem(): Office {
     return {
       id: 0,
       officeName: '',
@@ -44,7 +43,7 @@ export class OfficeComponent extends BaseCrudComponent<Office, TableViewModel, O
     };
   }
 
-  protected flattenItemForTable(office: Office): Record<string, string> {
+  public flattenItemForTable(office: Office): Record<string, string> {
     const mapped = this.mapper.mapToView(office);
     const flattened: Record<string, string> = {};
 

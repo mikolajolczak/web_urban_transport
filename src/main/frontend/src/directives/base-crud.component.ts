@@ -43,9 +43,9 @@ export abstract class BaseCrudComponent<T extends CrudItem, V, S extends Generic
 
   protected abstract setupTableColumns(): void;
 
-  protected abstract createNewItem(): T;
+  public abstract createNewItem(): T;
 
-  protected abstract flattenItemForTable(item: T): Record<string, string>;
+  public abstract flattenItemForTable(item: T): Record<string, string>;
 
   protected updateView() {
     this.itemsView = this.items.map(item => ({

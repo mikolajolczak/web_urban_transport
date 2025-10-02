@@ -3,7 +3,7 @@ import {Footer} from './footer/footer';
 import {Header} from './header/header';
 import {RouterOutlet} from '@angular/router';
 import {UserService} from '../services/user.service';
-
+import 'zone.js'
 @Component({
   selector: 'app-root',
   imports: [Footer, Header, RouterOutlet],
