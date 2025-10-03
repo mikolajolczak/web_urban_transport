@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LoginRequestTest {
 
@@ -30,14 +31,12 @@ class LoginRequestTest {
   @Test
   void shouldHandleNullUsername() {
     LoginRequest loginRequest = new LoginRequest();
-    loginRequest.setUsername(null);
-    assertThat(loginRequest.getUsername()).isNull();
+    assertThrows(IllegalArgumentException.class, () -> loginRequest.setUsername(null));
   }
 
   @Test
   void shouldHandleNullPassword() {
     LoginRequest loginRequest = new LoginRequest();
-    loginRequest.setPassword(null);
-    assertThat(loginRequest.getPassword()).isNull();
+    assertThrows(IllegalArgumentException.class, () -> loginRequest.setPassword(null));
   }
 }

@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import static com.example.demo.service.AddressService.areAddressesEqual;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -192,14 +193,14 @@ class EmployeeServiceTest {
     EmployeeService service =
         new EmployeeService(employeeRepository, addressRepository,
             officeRepository, salaryRepository, positionRepository);
-    assertTrue(service.areAddressesEqual(address, address));
+    assertTrue(areAddressesEqual(address, address));
     Address a2 = new Address();
     a2.setStreet("Main Street");
     a2.setCity("City");
     a2.setBuildingNumber("10");
     a2.setApartmentNumber("5A");
     a2.setPostalCode("12345");
-    assertTrue(service.areAddressesEqual(address, a2));
+    assertTrue(areAddressesEqual(address, a2));
   }
 
   @Test
