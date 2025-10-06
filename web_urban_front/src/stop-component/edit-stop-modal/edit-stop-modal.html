@@ -1,0 +1,28 @@
+<div class="title">{{ modalTitle }}</div>
+@if (stop) {
+  <div>
+    <label for="name">Name</label>
+    <input id="name" [(ngModel)]="stop.stopName" type="text">
+    <label for="city">City</label>
+    <input id="city" [(ngModel)]="city" type="text">
+    <label for="street">Street</label>
+    <input id="street" [(ngModel)]="street" type="text">
+    <label for="buildingNumber">Building Number</label>
+    <input id="buildingNumber" [(ngModel)]="buildingNumber" type="text">
+    <label for="apartmentNumber">Apartment Number</label>
+    <input id="apartmentNumber" [(ngModel)]="apartmentNumber" type="text">
+    <label for="postalCode">Postal Code</label>
+    <input id="postalCode" [(ngModel)]="postalCode" type="text">
+
+    <button (click)="closed.emit()">
+      <fa-icon [icon]="faChevronRight"></fa-icon>
+      Cancel
+    </button>
+    <button (click)="save()">
+      {{ saveButtonText }}
+      <fa-icon [icon]="faFloppyDisk"></fa-icon>
+    </button>
+  </div>
+} @else {
+  <div>Loading...</div>
+}

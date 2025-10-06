@@ -1,0 +1,19 @@
+<app-generic-table
+  title="Vehicles"
+  createButtonText="New vehicle"
+  [items]="itemsView"
+  [columns]="tableColumns"
+  [showModal]="showModal"
+  tableWidth="80vw"
+  (create)="createItem()"
+  (edit)="openModal($event)"
+  (delete)="removeItem($event)"
+  (closeModal)="closeModal()">
+
+  <app-edit-vehicle-modal
+    [vehicle]="chosenItem"
+    [isEditMode]="isEditMode"
+    (closed)="closeModal()"
+    (createVehicle)="saveItem($event)"
+    (updateVehicle)="updateItem($event)"/>
+</app-generic-table>

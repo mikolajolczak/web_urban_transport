@@ -1,0 +1,80 @@
+@if (employee) {
+  <div class="title">{{ modalTitle }}</div>
+  <div>
+    <div class="columns">
+      <div class="form-grid">
+        <label for="firstName">First Name</label>
+        <input id="firstName" [(ngModel)]="employee.firstName" type="text">
+
+        <label for="lastName">Last Name</label>
+        <input id="lastName" [(ngModel)]="employee.lastName" type="text">
+
+        <label for="gender">Gender</label>
+        <select id="gender" [(ngModel)]="employee.gender">
+          <option [value]="'M'">Male</option>
+          <option [value]="'F'">Female</option>
+        </select>
+
+        <label for="office">Office</label>
+        <select id="office" [(ngModel)]="employee.office.id">
+          @for (office of offices; track office.id) {
+            <option [value]="office.id">{{ office.officeName }}</option>
+          }
+        </select>
+
+        <label for="salary">Salary</label>
+        <select id="salary" [(ngModel)]="employee.salary.id">
+          @for (salary of salaries; track salary.id) {
+            <option [value]="salary.id">{{ salary.amount }}</option>
+          }
+        </select>
+
+        <label for="position">Position</label>
+        <select id="position" [(ngModel)]="employee.position.id">
+          @for (position of positions; track position.id) {
+            <option [value]="position.id">{{ position.positionName }}</option>
+          }
+        </select>
+
+        <label for="accountNumber">Account Number</label>
+        <input id="accountNumber" [(ngModel)]="employee.accountNumber" type="text">
+      </div>
+
+      <div class="form-grid">
+        <label for="idNumber">Id Number</label>
+        <input id="idNumber" [(ngModel)]="employee.personalIdentificationNumber" type="text">
+
+        <label for="employmentDate">Employment Date</label>
+        <input id="employmentDate" [(ngModel)]="employee.employmentDate" type="date">
+
+        <label for="city">City</label>
+        <input id="city" [(ngModel)]="employee.address.city" type="text">
+
+        <label for="street">Street</label>
+        <input id="street" [(ngModel)]="employee.address.street" type="text">
+
+        <label for="buildingNumber">Building Number</label>
+        <input id="buildingNumber" [(ngModel)]="employee.address.buildingNumber" type="text">
+
+        <label for="apartmentNumber">Apartment Number</label>
+        <input id="apartmentNumber" [(ngModel)]="employee.address.apartmentNumber" type="text">
+
+        <label for="postalCode">Postal Code</label>
+        <input id="postalCode" [(ngModel)]="employee.address.postalCode" type="text">
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <button (click)="closed.emit()">
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+        Cancel
+      </button>
+      <button (click)="save()">
+        {{ saveButtonText }}
+        <fa-icon [icon]="faFloppyDisk"></fa-icon>
+      </button>
+    </div>
+  </div>
+} @else {
+  <div>Loading...</div>
+}

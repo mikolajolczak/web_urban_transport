@@ -1,0 +1,14 @@
+<app-generic-table
+  title="Stops"
+  createButtonText="New stop"
+  [items]="itemsView"
+  [columns]="tableColumns"
+  [showModal]="showModal"
+  tableWidth="60vw"
+  (create)="createItem()"
+  (edit)="openModal($event)"
+  (delete)="removeItem($event)"
+  (closeModal)="closeModal()">
+  <app-edit-stop-modal [stop]="chosenItem" [isEditMode]="isEditMode" (closed)="closeModal()"
+                       (createStop)="saveItem($event)" (updateStop)="updateItem($event)"/>
+</app-generic-table>

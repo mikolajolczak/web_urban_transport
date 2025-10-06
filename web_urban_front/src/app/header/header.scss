@@ -1,0 +1,56 @@
+div {
+  flex-direction: row;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  user-select: none;
+  align-items: center;
+  background-color: #FFFFFF;
+}
+
+fa-icon {
+  font-size: smaller;
+  color: #3D9970;
+  margin-right: -0.3rem;
+}
+
+.logo {
+  margin-right: auto;
+
+}
+
+.logo {
+  cursor: pointer;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #3D9970;
+}
+
+.logo:hover {
+  color: #3D9970;
+}
+
+a, button {
+  cursor: pointer;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  background: none;
+  border: none;
+  font-size: medium;
+  padding: 0;
+}
+
+a:hover, button:hover {
+  color: #3D9970;
+  transition: color 0.3s;
+}
+
+.container {
+  width: 6.3rem;
+
+}

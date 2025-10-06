@@ -1,0 +1,20 @@
+<app-generic-table
+  title="Offices"
+  createButtonText="New office"
+  [items]="itemsView"
+  [columns]="tableColumns"
+  [showModal]="showModal"
+  tableWidth="60vw"
+  (create)="createItem()"
+  (edit)="openModal($event)"
+  (delete)="removeItem($event)"
+  (closeModal)="closeModal()">
+
+  <app-edit-office-modal
+    [office]="chosenItem"
+    [isEditMode]="isEditMode"
+    (closed)="closeModal()"
+    (createOffice)="saveItem($event)"
+    (updateOffice)="updateItem($event)"
+  />
+</app-generic-table>

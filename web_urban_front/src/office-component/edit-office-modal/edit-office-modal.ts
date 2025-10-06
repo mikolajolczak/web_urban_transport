@@ -1,0 +1,96 @@
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {faChevronRight, faFloppyDisk} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {FormsModule} from '@angular/forms';
+import {Office} from '../../entities/office';
+
+@Component({
+  selector: 'app-edit-office-modal',
+  imports: [
+    FontAwesomeModule, FormsModule
+  ],
+  templateUrl: './edit-office-modal.html',
+  styleUrl: './edit-office-modal.scss'
+})
+export class EditOfficeModal {
+  @Input() office!: Office;
+  @Input() isEditMode!: boolean;
+  @Output() closed = new EventEmitter<void>();
+  @Output() createOffice = new EventEmitter<Office>();
+  @Output() updateOffice = new EventEmitter<Office>();
+
+  faChevronRight = faChevronRight;
+  faFloppyDisk = faFloppyDisk;
+
+  get city() {
+    return this.office.address?.city ?? '';
+  }
+
+  set city(value: string) {
+    if (!this.office.address) {
+      this.office.address = {apartmentNumber: '', buildingNumber: '', city: value, id: 0, postalCode: '', street: ''};
+    }
+    this.office.address.city = value;
+  }
+
+  get street() {
+    return this.office.address?.street ?? '';
+  }
+
+  set street(value: string) {
+    if (!this.office.address) {
+      this.office.address = {apartmentNumber: '', buildingNumber: '', city: '', id: 0, postalCode: '', street: value};
+    }
+    this.office.address.street = value;
+  }
+
+  get buildingNumber() {
+    return this.office.address?.buildingNumber ?? '';
+  }
+
+  set buildingNumber(value: string) {
+    if (!this.office.address) {
+      this.office.address = {apartmentNumber: '', buildingNumber: value, city: '', id: 0, postalCode: '', street: ''};
+    }
+    this.office.address.buildingNumber = value;
+  }
+
+  get apartmentNumber() {
+    return this.office.address?.apartmentNumber ?? '';
+  }
+
+  set apartmentNumber(value: string) {
+    if (!this.office.address) {
+      this.office.address = {apartmentNumber: value, buildingNumber: '', city: '', id: 0, postalCode: '', street: ''};
+    }
+    this.office.address.apartmentNumber = value;
+  }
+
+  get postalCode() {
+    return this.office.address?.postalCode ?? '';
+  }
+
+  set postalCode(value: string) {
+    if (!this.office.address) {
+      this.office.address = {apartmentNumber: '', buildingNumber: '', city: '', id: 0, postalCode: value, street: ''};
+    }
+    this.office.address.postalCode = value;
+  }
+
+  save() {
+    if (this.isEditMode) {
+      this.updateOffice.emit(this.office);
+    } else {
+      this.createOffice.emit(this.office);
+    }
+    this.closed.emit();
+  }
+
+  get modalTitle(): string {
+    return this.isEditMode ? 'Edit Office' : 'Create New Office';
+  }
+
+  get saveButtonText(): string {
+    return this.isEditMode ? 'Update' : 'Create';
+  }
+}

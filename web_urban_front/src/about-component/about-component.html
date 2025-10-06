@@ -1,0 +1,120 @@
+<div class="form">
+  @if (!isEditMode) {
+    @for (item of employeeView$ | async; track item) {
+      <span class="row">
+        <p class="label">{{ item.label }}:</p>
+        <p>{{ item.value }}</p>
+      </span>
+    }
+
+    <span class="row button-row">
+      <button class="edit-button" (click)="enterEditMode()">
+        Edit
+        <fa-icon [icon]="faUserEdit"></fa-icon>
+      </button>
+    </span>
+  } @else {
+    <span class="row">
+      <p class="label">First Name:</p>
+      <input type="text" [(ngModel)]="editForm.firstName" class="edit-input"/>
+    </span>
+
+    <span class="row">
+      <p class="label">Last Name:</p>
+      <input type="text" [(ngModel)]="editForm.lastName" class="edit-input"/>
+    </span>
+
+    <span class="row">
+      <p class="label">Gender:</p>
+      <select [(ngModel)]="editForm.gender" class="edit-input">
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+    </span>
+
+    <span class="row">
+      <p class="label">Personal ID Number:</p>
+      <input type="text" [(ngModel)]="editForm.personalIdentificationNumber" class="edit-input"/>
+    </span>
+
+    <span class="row">
+      <p class="label">Account Number:</p>
+      <input type="text" [(ngModel)]="editForm.accountNumber" class="edit-input"/>
+    </span>
+
+    <span class="row">
+      <p class="label">Employment Date:</p>
+      <input type="date" [(ngModel)]="editForm.employmentDate" class="edit-input"/>
+    </span>
+
+    <span class="row">
+      <p class="label">Office:</p>
+      <select [(ngModel)]="editForm.officeId" class="edit-input">
+        @for (office of offices; track office.id) {
+          <option [value]="office.id">
+            {{ office.officeName }}
+          </option>
+        }
+      </select>
+    </span>
+
+    <span class="row">
+      <p class="label">Position:</p>
+      <select [(ngModel)]="editForm.positionId" class="edit-input">
+        @for (position of positions; track position.id) {
+          <option [value]="position.id">
+            {{ position.positionName }}
+          </option>
+        }
+      </select>
+    </span>
+
+    <span class="row">
+      <p class="label">Salary:</p>
+      <select [(ngModel)]="editForm.salaryId" class="edit-input">
+        @for (salary of salaries; track salary.id) {
+          <option [value]="salary.id">
+            {{ salary.amount }}
+          </option>
+        }
+      </select>
+    </span>
+
+    <span class="row">
+      <p class="label">Street:</p>
+      <input type="text" [(ngModel)]="editForm.street" class="edit-input"/>
+    </span>
+
+    <span class="row">
+      <p class="label">City:</p>
+      <input type="text" [(ngModel)]="editForm.city" class="edit-input"/>
+    </span>
+
+    <span class="row">
+      <p class="label">Building Number:</p>
+      <input type="text" [(ngModel)]="editForm.buildingNumber" class="edit-input"/>
+    </span>
+
+    <span class="row">
+      <p class="label">Apartment Number:</p>
+      <input type="text" [(ngModel)]="editForm.apartmentNumber" class="edit-input"/>
+    </span>
+
+    <span class="row">
+      <p class="label">Postal Code:</p>
+      <input type="text" [(ngModel)]="editForm.postalCode" class="edit-input"/>
+    </span>
+
+    <span class="row button-row">
+      <button class="cancel-button" (click)="cancelEdit()">
+        <fa-icon [icon]="faTimes"></fa-icon>
+        Cancel
+      </button>
+
+      <button class="save-button" (click)="saveChanges()">
+        Save
+        <fa-icon [icon]="faSave"></fa-icon>
+      </button>
+    </span>
+  }
+</div>

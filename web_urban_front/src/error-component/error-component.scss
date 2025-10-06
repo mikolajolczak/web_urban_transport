@@ -1,0 +1,24 @@
+:host {
+  flex: 1;
+  align-content: center;
+  justify-items: center;
+}
+
+div {
+  width: 50vw;
+  background: #FFF;
+  margin-bottom: 6rem;
+  color: #FF4136;
+  font-size: 1.2rem;
+  text-align: center;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  padding: 2.5rem;
+}
+
+p {
+  font-size: 5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
